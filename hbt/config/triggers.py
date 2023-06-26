@@ -34,7 +34,7 @@ def add_triggers_2017(config: od.Config) -> None:
             tags={"single_trigger", "single_e", "channel_e_tau"},
         ),
         Trigger(
-            name="HLT_Ele32_WPTight_Gsf_L1DoubnleEG",
+            name="HLT_Ele32_WPTight_Gsf_L1DoubleEG",
             id=202,
             legs=[
                 TriggerLeg(
