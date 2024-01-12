@@ -20,6 +20,7 @@ from columnflow.config_util import (
     get_root_processes_from_campaign, add_shift_aliases, get_shifts_from_sources,
     verify_config_processes,
 )
+from columnflow.columnar_util import ColumnCollection
 
 
 thisdir = os.path.dirname(os.path.abspath(__file__))
@@ -197,7 +198,7 @@ def add_config(
     # selector step groups for conveniently looping over certain steps
     # (used in cutflow tasks)
     cfg.x.selector_step_groups = {
-        "default": ["met_filter", "trigger", "lepton", "jet", "bjet"],
+        "default": ["json", "met_filter", "trigger", "lepton", "jet", "bjet"],
     }
 
     # custom method and sandbox for determining dataset lfns
@@ -554,7 +555,7 @@ def add_config(
     )
 
     # external files
-    json_mirror = "/afs/cern.ch/user/m/mrieger/public/mirrors/jsonpog-integration-dfd90038"
+    json_mirror = "/afs/cern.ch/work/m/mrieger/public/mirrors/jsonpog-integration-9ea86c4c"
     cfg.x.external_files = DotDict.wrap({
         # jet energy correction
         "jet_jerc": (f"{json_mirror}/POG/JME/{year}{corr_postfix}_UL/jet_jerc.json.gz", "v1"),
@@ -661,12 +662,10 @@ def add_config(
             "MET.pt", "MET.phi", "MET.significance", "MET.covXX", "MET.covXY", "MET.covYY",
             "PV.npvs",
             # columns added during selection
-            "channel_id", "process_id", "category_ids", "mc_weight", "pdf_weight*", "murmuf_weight*",
-            "leptons_os", "tau2_isolated", "single_triggered", "cross_triggered",
-            "deterministic_seed", "pu_weight*", "btag_weight*", "cutflow.*",
+            ColumnCollection.ALL_FROM_SELECTOR,
         },
         "cf.MergeSelectionMasks": {
-            "normalization_weight", "process_id", "category_ids", "cutflow.*",
+            "cutflow.*",
         },
         "cf.UniteColumns": {
             "*",
