@@ -676,14 +676,14 @@ def add_config(
     get_shifts = functools.partial(get_shifts_from_sources, cfg)
     cfg.x.event_weights = DotDict({
         "normalization_weight": [],
-        "pdf_weight": get_shifts("pdf"),
-        "murmuf_weight": get_shifts("murmuf"),
-        "normalized_pu_weight": get_shifts("minbias_xs"),
-        "normalized_njet_btag_weight": get_shifts(*(f"btag_{unc}" for unc in btag_uncs)),
-        "electron_weight": get_shifts("e"),
-        "muon_weight": get_shifts("mu"),
-        "tau_weight": get_shifts(*(f"tau_{unc}" for unc in tau_uncs)),
-        "tau_trigger_weight": get_shifts("etau_trigger", "mutau_trigger", "tautau_trigger"),
+        # "pdf_weight": get_shifts("pdf"),
+        # "murmuf_weight": get_shifts("murmuf"),
+        # "normalized_pu_weight": get_shifts("minbias_xs"),
+        # "normalized_njet_btag_weight": get_shifts(*(f"btag_{unc}" for unc in btag_uncs)),
+        # "electron_weight": get_shifts("e"),
+        # "muon_weight": get_shifts("mu"),
+        # "tau_weight": get_shifts(*(f"tau_{unc}" for unc in tau_uncs)),
+        # "tau_trigger_weight": get_shifts("etau_trigger", "mutau_trigger", "tautau_trigger"),
     })
 
     # define per-dataset event weights
@@ -763,4 +763,11 @@ def add_config(
         cfg.x.get_dataset_lfns_sandbox = dev_sandbox("bash::$CF_BASE/sandboxes/cf.sh")
 
         # define custom remote fs's to look at
-        cfg.x.get_dataset_lfns_remote_fs = lambda dataset_inst: f"wlcg_fs_{cfg.campaign.x.custom['name']}"
+        def get_dataset_lfns_fs(dataset_inst: od.Dataset) -> list[str]:
+            fs = []
+            if os.path.isdir("/pnfs"):
+                fs.append(f"local_fs_{cfg.campaign.x.custom['name']}")
+            fs.append(f"wlcg_fs_{cfg.campaign.x.custom['name']}")
+            return fs
+
+        cfg.x.get_dataset_lfns_remote_fs = get_dataset_lfns_fs
