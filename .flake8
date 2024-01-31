@@ -4,7 +4,11 @@
 max-line-length = 120
 
 # codes of errors to ignore
+<<<<<<< HEAD
 ignore = E128, E306, E402, E722, E731, W504, Q003
+=======
+ignore = E128, E306, E402, E722, E731, W504
+>>>>>>> 4ced1aebe036fdcaf1403d00a04355f9b73da8f8
 
 # enforce double quotes
 inline-quotes = double
