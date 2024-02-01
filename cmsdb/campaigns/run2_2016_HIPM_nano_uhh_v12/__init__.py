@@ -21,18 +21,18 @@ from order import Campaign
 # campaign
 #
 
-campaign_run2_2016_HIMP_uhh_v12 = Campaign(
-    name="run2_2016_HIMP_nano_uhh_v12",
+campaign_run2_2016_HIPM_nano_uhh_v12 = Campaign(
+    name="run2_2016_HIPM_nano_uhh_v12",
     id=2201601221,  # 2 2016 0(HIMP) 12 21(u)
     ecm=13,
     bx=25,
     aux={
         "tier": "NanoAOD",
         "year": 2016,
-        "identifier": "HIMP",
+        "identifier": "HIPM",
         "version": 12,
         "custom": {
-            "name": "run2_2016_HIMP_nano_uhh_v12",
+            "name": "run2_2016_HIPM_nano_uhh_v12",
             "creator": "uhh",
             "location": "davs://dcache-cms-webdav-wan.desy.de:2880/pnfs/desy.de/cms/tier2/store/user/aalvesan/nano_uhh_v12_2016_HIPM/merged_2048.0MB",  # noqa
         },
