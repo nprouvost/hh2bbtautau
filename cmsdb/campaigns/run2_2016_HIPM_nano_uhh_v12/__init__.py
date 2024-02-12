@@ -11,7 +11,7 @@ Since this is a custom production, neither can LFNs be obtained through DAS (or 
 can PFNs be located through the usual, central redirectors.
 
 They are centrally saved at the dCache instance at DESY (e.g. dcache-door-cms04.desy.de) under
-/pnfs/desy.de/cms/tier2/store/user/bwieders/nano_uhh_v11.
+/pnfs/desy.de/cms/tier2/store/user/aalvesan/nano_uhh_v12_2016_HIPM.
 """
 
 from order import Campaign
@@ -23,7 +23,7 @@ from order import Campaign
 
 campaign_run2_2016_HIPM_nano_uhh_v12 = Campaign(
     name="run2_2016_HIPM_nano_uhh_v12",
-    id=2201601221,  # 2 2016 0(HIMP) 12 21(u)
+    id=2201601221,  # 2 2016 0(HIPM) 12 21(u)
     ecm=13,
     bx=25,
     aux={
@@ -40,16 +40,9 @@ campaign_run2_2016_HIPM_nano_uhh_v12 = Campaign(
 )
 
 # trailing imports to load datasets
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.data  # noqa
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.DY  # noqa
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.ewk  # noqa
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.hh2bbtautau  # noqa
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.MultiBoson  # noqa
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.SingleHiggs  # noqa
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.SingleTop  # noqa
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.ttbar  # noqa
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.W  # noqa
-import cmsdb.campaigns.run2_2016_HIMP_nano_uhh_v12.Z  # noqa
-
-
-
+import cmsdb.campaigns.run2_2016_HIPM_nano_uhh_v12.data  # noqa
+import cmsdb.campaigns.run2_2016_HIPM_nano_uhh_v12.ewk  # noqa
+import cmsdb.campaigns.run2_2016_HIPM_nano_uhh_v12.hh2bbtautau  # noqa
+import cmsdb.campaigns.run2_2016_HIPM_nano_uhh_v12.higgs  # noqa
+import cmsdb.campaigns.run2_2016_HIPM_nano_uhh_v12.st  # noqa
+import cmsdb.campaigns.run2_2016_HIPM_nano_uhh_v12.ttbar  # noqa
