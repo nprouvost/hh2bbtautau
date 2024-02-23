@@ -12,9 +12,11 @@ from columnflow.production.cms.muon import muon_weights
 from columnflow.util import maybe_import
 
 from hbt.production.features import features
+from hbt.production.cooles_producer_example import all_features
 from hbt.production.weights import normalized_pu_weight, normalized_pdf_weight, normalized_murmuf_weight
 from hbt.production.btag import normalized_btag_weights
 from hbt.production.tau import tau_weights, trigger_weights
+from IPython import embed
 
 
 ak = maybe_import("awkward")
@@ -22,14 +24,16 @@ ak = maybe_import("awkward")
 
 @producer(
     uses={
-        category_ids, features, normalization_weights, normalized_pdf_weight,
+        category_ids, features,
+        normalization_weights, normalized_pdf_weight,
         normalized_murmuf_weight, normalized_pu_weight, normalized_btag_weights,
-        tau_weights, electron_weights, muon_weights, trigger_weights,
+        tau_weights, electron_weights, muon_weights, trigger_weights, "Jet.hhbtag", all_features,  # "Jet.pt_1", "number_of_jets",
     },
     produces={
-        category_ids, features, normalization_weights, normalized_pdf_weight,
+        category_ids, features,
+        normalization_weights, normalized_pdf_weight,
         normalized_murmuf_weight, normalized_pu_weight, normalized_btag_weights,
-        tau_weights, electron_weights, muon_weights, trigger_weights,
+        tau_weights, electron_weights, muon_weights, trigger_weights, all_features,
     },
 )
 def default(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
@@ -38,6 +42,10 @@ def default(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
 
     # features
     events = self[features](events, **kwargs)
+
+    events = self[all_features](events, **kwargs)
+
+    # embed()
 
     # mc-only weights
     if self.dataset_inst.is_mc:

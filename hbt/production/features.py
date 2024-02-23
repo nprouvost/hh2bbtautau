@@ -24,19 +24,20 @@ set_ak_column_i32 = functools.partial(set_ak_column, value_type=np.int32)
 @producer(
     uses={
         # nano columns
-        "Electron.pt", "Muon.pt", "Jet.pt", "HHBJet.pt",
+        "Electron.pt", "Muon.pt", "Jet.pt",  # "HHBJet.pt",
     },
     produces={
         # new columns
-        "ht", "n_jet", "n_hhbtag", "n_electron", "n_muon",
+        "ht", "n_jet", "n_electron", "n_muon", "pt_6_jet",  # "n_hhbtag",
     },
 )
 def features(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
     events = set_ak_column_f32(events, "ht", ak.sum(events.Jet.pt, axis=1))
     events = set_ak_column_i32(events, "n_jet", ak.num(events.Jet.pt, axis=1))
-    events = set_ak_column_i32(events, "n_hhbtag", ak.num(events.HHBJet.pt, axis=1))
+    # events = set_ak_column_i32(events, "n_hhbtag", ak.num(events.HHBJet.pt, axis=1))
     events = set_ak_column_i32(events, "n_electron", ak.num(events.Electron.pt, axis=1))
     events = set_ak_column_i32(events, "n_muon", ak.num(events.Muon.pt, axis=1))
+    events = set_ak_column_i32(events, "pt_6_jet", Route("pt[:,6]").apply(events.Jet, EMPTY_FLOAT))
 
     return events
 

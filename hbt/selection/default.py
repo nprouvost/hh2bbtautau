@@ -24,7 +24,9 @@ from columnflow.util import maybe_import, dev_sandbox
 from hbt.selection.trigger import trigger_selection
 from hbt.selection.lepton import lepton_selection
 from hbt.selection.jet import jet_selection
-from hbt.production.features import cutflow_features
+from hbt.production.features import cutflow_features, features
+
+from IPython import embed
 
 
 np = maybe_import("numpy")
@@ -35,12 +37,12 @@ ak = maybe_import("awkward")
     uses={
         json_filter, met_filters, trigger_selection, lepton_selection, jet_selection, mc_weight,
         pdf_weights, murmuf_weights, pu_weight, btag_weights, process_ids, cutflow_features,
-        increment_stats, attach_coffea_behavior,
+        increment_stats, attach_coffea_behavior, features, "FatJet.*",
     },
     produces={
         trigger_selection, lepton_selection, jet_selection, mc_weight,
         pdf_weights, murmuf_weights, pu_weight, btag_weights, process_ids, cutflow_features,
-        increment_stats,
+        increment_stats, features,
     },
     sandbox=dev_sandbox("bash::$HBT_BASE/sandboxes/venv_columnar_tf.sh"),
     exposed=True,
@@ -51,6 +53,7 @@ def default(
     stats: defaultdict,
     **kwargs,
 ) -> tuple[ak.Array, SelectionResult]:
+    # embed()
     # ensure coffea behavior
     events = self[attach_coffea_behavior](events, **kwargs)
 
@@ -170,5 +173,6 @@ def default(
         group_combinations=group_combinations,
         **kwargs,
     )
+    events = self[features](events, **kwargs)
 
     return events, results

@@ -54,13 +54,37 @@ def add_variables(config: od.Config) -> None:
         unit="GeV",
         x_title="HT",
     )
+    # config.add_variable(
+    #     name="jet1_pt",
+    #     expression="Jet.pt[:,0]",
+    #     null_value=EMPTY_FLOAT,
+    #     binning=(40, 0.0, 400.0),
+    #     unit="GeV",
+    #     x_title=r"Jet 1 $p_{T}$",
+    # )
     config.add_variable(
-        name="jet1_pt",
-        expression="Jet.pt[:,0]",
+        name="jet1_pt_squared",
+        expression="Jet.pt_squared[:,0]",
+        binning=(100, 0, 10000),
+        unit="GeV",
+        x_title=r"Jet 1 $p_{T}^2$",
+    )
+
+    config.add_variable(
+        name="jet3_pt",
+        expression="Jet.pt[:,2]",
+        null_value=None,
+        binning=(10, -100000.0, 400.0),
+        unit="GeV",
+        x_title=r"Jet 3 $p_{T}$",
+    )
+    config.add_variable(
+        name="pt_6_jet",
+        expression="pt_6_jet",
         null_value=EMPTY_FLOAT,
         binning=(40, 0.0, 400.0),
         unit="GeV",
-        x_title=r"Jet 1 $p_{T}$",
+        x_title=r"Jet 6 $p_{T}$",
     )
     config.add_variable(
         name="jet1_eta",
