@@ -43,13 +43,30 @@ analysis_hbt.x.config_groups = {}
 #
 
 from hbt.config.configs_run2ul import add_config as add_config_run2ul
-# 2016
+
+# 2016 HIPM
 from cmsdb.campaigns.run2_2016_HIPM_nano_uhh_v12 import campaign_run2_2016_HIPM_nano_uhh_v12
+
+# default v12 config 
+add_config_run2ul(
+    analysis_hbt,
+    campaign_run2_2016_HIPM_nano_uhh_v12.copy(),
+    config_name=campaign_run2_2016_HIPM_nano_uhh_v12.name,
+    config_id=6, ##### random number here that is not repeated ?
+)
+
+# default v12 config with limited number of files for faster prototyping
+add_config_run2ul(
+    analysis_hbt,
+    campaign_run2_2016_HIPM_nano_uhh_v12.copy(),
+    config_name=f"{campaign_run2_2016_HIPM_nano_uhh_v12.name}_limited",
+    config_id=16, ##### random number here that is not repeated ?
+    limit_dataset_files=2,
+)
+
 # 2017
 from cmsdb.campaigns.run2_2017_nano_v9 import campaign_run2_2017_nano_v9
 from cmsdb.campaigns.run2_2017_nano_uhh_v11 import campaign_run2_2017_nano_uhh_v11
-# 2018
-from cmsdb.campaigns.run2_2018_nano_uhh_v11 import campaign_run2_2018_nano_uhh_v11
 
 
 # default v9 config
@@ -83,23 +100,5 @@ add_config_run2ul(
     campaign_run2_2017_nano_uhh_v11.copy(),
     config_name=f"{campaign_run2_2017_nano_uhh_v11.name}_limited",
     config_id=32,
-    limit_dataset_files=2,
-)
-
-# 2018 v11 uhh config with limited number of files for faster prototyping
-add_config_run2ul(
-    analysis_hbt,
-    campaign_run2_2018_nano_uhh_v11.copy(),
-    config_name=f"{campaign_run2_2018_nano_uhh_v11.name}_limited",
-    config_id=55,
-    limit_dataset_files=2,
-)
-
-# v12 uhh config with limited number of files for faster prototyping
-add_config_run2ul(
-    analysis_hbt,
-    campaign_run2_2016_HIPM_nano_uhh_v12.copy(),
-    config_name=f"{campaign_run2_2016_HIPM_nano_uhh_v12.name}_limited",
-    config_id=23,
     limit_dataset_files=2,
 )

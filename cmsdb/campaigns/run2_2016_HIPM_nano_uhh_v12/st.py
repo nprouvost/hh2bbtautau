@@ -1,19 +1,21 @@
 # coding: utf-8
 
 
-"""Single Top datasets from the 2016 data-taking campaign with datasets at NanoAOD tier in
-version 12, created with custom content at UHH."""
+"""
+Single Top datasets from the 2016 data-taking campaign with datasets at NanoAOD tier in
+version 12, created with custom content at UHH.
+"""
 
 
 import cmsdb.processes as procs
-from cmsdb.campaigns.run2_2016_HIPM_uhh_v12 import campaigns_run2_2016_HIPM_uhh_v12 as cpn
+from cmsdb.campaigns.run2_2016_HIPM_nano_uhh_v12 import campaign_run2_2016_HIPM_nano_uhh_v12 as cpn
 from order import DatasetInfo
 
 # ST_tW_top
 cpn.add_dataset(
-    name="st_tw_t_powheg",
+    name="st_twchannel_t_powheg",
     id=14213957,
-    processes=[procs.st_tw_t],
+    processes=[procs.st_twchannel_t],
     keys=[
 	"/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16MiniAODAPVv2-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",  # noqa
     ],
@@ -23,9 +25,9 @@ cpn.add_dataset(
 
 # ST_tW_antitop
 cpn.add_dataset(
-    name="st_tw_tbar_powheg",
+    name="st_twchannel_tbar_powheg",
     id=14212973,
-    processes=[procs.st_tw_tbar],
+    processes=[procs.st_twchannel_tbar],
     keys=[
 	"/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16MiniAODAPVv2-106X_mcRun2_asymptotic_preVFP_v11-v1/NANOAODSIM",  # noqa
     ],
