@@ -8,6 +8,198 @@ import order as od
 
 from hbt.config.util import Trigger, TriggerLeg
 
+# 2016 triggers as per AN of CMS-HIG-20-010 (AN2018_121_v11-1)
+def add_triggers_2016(config: od.Config) -> None:
+    """
+    Adds all triggers to a *config*. For the conversion from filter names to trigger bits, see
+    https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/NanoAOD/python/triggerObjects_cff.py.
+    """
+    config.x.triggers = od.UniqueObjectIndex(Trigger, [
+        #
+        # single electron
+        #
+        Trigger(
+            name="HLT_Ele25_eta2p1_WPTight_Gsf", 
+            id= , ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=11,
+                    min_pt= , ######## TO DO 
+                    # filter names:
+                    ######## TO DO
+                    trigger_bits= , ######## TO DO 
+                ),
+            ],
+            applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or dataset_inst.is_data),
+            tags={"single_trigger", "single_e", "channel_e_tau"},
+        ),
+        #
+        # single muon
+        #
+        Trigger(
+            name="HLT_IsoMu22",
+            id= , ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=13,
+                    min_pt= , ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= , ######## TO DO 
+                ),
+            ],
+            tags={"single_trigger", "single_mu", "channel_mu_tau"},
+        ),
+
+        Trigger(
+            name="HLT_IsoMu22_eta2p1",
+            id= ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=13,
+                    min_pt= , ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= , ######## TO DO 
+                ),
+            ],
+            tags={"single_trigger", "single_mu", "channel_mu_tau"},
+        ),
+
+        Trigger(
+            name="HLT_IsoTkMu22",
+            id= ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=13,
+                    min_pt= , ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= , ######## TO DO 
+                ),
+            ],
+            tags={"single_trigger", "single_mu", "channel_mu_tau"},
+        ),
+
+        Trigger(
+            name="HLT_IsoTkMu22_eta2p1",
+            id= ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=13,
+                    min_pt= , ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= , ######## TO DO 
+                ),
+            ],
+            tags={"single_trigger", "single_mu", "channel_mu_tau"},
+        ),
+
+        #
+        # e tauh (NO Triggers)
+        #
+
+        #
+        # mu tauh
+        #
+        Trigger(
+            name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20",
+            id=, ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=13,
+                    min_pt=, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= , ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt=, ######## TO DO 
+                    # filter names:
+                    ######## TO DO
+                    trigger_bits=, ######## TO DO 
+                ),
+            ],
+            tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
+        ),
+
+        Trigger(
+            name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1",
+            id=, ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=13,
+                    min_pt=, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= , ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt=, ######## TO DO 
+                    # filter names:
+                    ######## TO DO
+                    trigger_bits=, ######## TO DO 
+                ),
+            ],
+            tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
+        ),
+
+        #
+        # tauh tauh
+        #
+        Trigger(
+            name="HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg",
+            id=, ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt=, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits=, ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt=, ######## TO DO 
+                    # filter names:
+                    ####### TO DO 
+                    trigger_bits=, ######## TO DO 
+                ),
+            ],
+            applies_to_dataset=(lambda dataset_inst: dataset_inst.x.era >= "B" and dataset_inst.x.era <= "G"),
+            tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
+        ),
+        Trigger(
+            name="HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg",
+            id=, ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt=, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits=, ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt=, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits=, ######## TO DO 
+                ),
+            ],
+            applies_to_dataset=(lambda dataset_inst: dataset_inst.x.era >= "H"),
+            tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
+        ),
+
+        #
+        # vbf  (NO Triggers)
+        #
+    ])
+ 
 
 def add_triggers_2017(config: od.Config) -> None:
     """
