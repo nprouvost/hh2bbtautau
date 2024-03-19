@@ -726,11 +726,13 @@ def add_config(
     add_met_filters(cfg)
 
     # add triggers
-    if year == 2017:
+    if year == 2016:
+        cfg.x.triggers = None
+        #from hbt.config.triggers import add_triggers_2016
+        #add_triggers_2016(cfg)    
+    elif year == 2017:
         from hbt.config.triggers import add_triggers_2017
         add_triggers_2017(cfg)
-    elif year == 2016:
-        cfg.x.triggers = None
     elif year == 2018:
         from hbt.config.triggers import add_triggers_2018
         add_triggers_2018(cfg)
