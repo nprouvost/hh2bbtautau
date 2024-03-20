@@ -9,6 +9,7 @@ import order as od
 from hbt.config.util import Trigger, TriggerLeg
 
 # 2016 triggers as per AN of CMS-HIG-20-010 (AN2018_121_v11-1)
+
 def add_triggers_2016(config: od.Config) -> None:
     """
     Adds all triggers to a *config*. For the conversion from filter names to trigger bits, see
@@ -20,82 +21,79 @@ def add_triggers_2016(config: od.Config) -> None:
         #
         Trigger(
             name="HLT_Ele25_eta2p1_WPTight_Gsf", 
-            id= , ######## TO DO 
+            id= 701, ######## TO DO 
             legs=[
                 TriggerLeg(
                     pdg_id=11,
-                    min_pt= , ######## TO DO 
+                    min_pt= 28, ######## TO DO 
                     # filter names:
                     ######## TO DO
-                    trigger_bits= , ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
             ],
-            applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or dataset_inst.is_data),
             tags={"single_trigger", "single_e", "channel_e_tau"},
         ),
+        
         #
         # single muon
         #
         Trigger(
             name="HLT_IsoMu22",
-            id= , ######## TO DO 
+            id= 702, ######## TO DO 
             legs=[
                 TriggerLeg(
                     pdg_id=13,
-                    min_pt= , ######## TO DO 
+                    min_pt= 25, ######## TO DO 
                     # filter names:
                     ######## TO DO 
-                    trigger_bits= , ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
         ),
-
         Trigger(
             name="HLT_IsoMu22_eta2p1",
-            id= ######## TO DO 
+            id= 703, ######## TO DO 
             legs=[
                 TriggerLeg(
                     pdg_id=13,
-                    min_pt= , ######## TO DO 
+                    min_pt= 25, ######## TO DO 
                     # filter names:
                     ######## TO DO 
-                    trigger_bits= , ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
         ),
-
         Trigger(
             name="HLT_IsoTkMu22",
-            id= ######## TO DO 
+            id= 704, ######## TO DO 
             legs=[
                 TriggerLeg(
                     pdg_id=13,
-                    min_pt= , ######## TO DO 
+                    min_pt= 25, ######## TO DO 
                     # filter names:
                     ######## TO DO 
-                    trigger_bits= , ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
         ),
-
         Trigger(
             name="HLT_IsoTkMu22_eta2p1",
-            id= ######## TO DO 
+            id= 705, ######## TO DO 
             legs=[
                 TriggerLeg(
                     pdg_id=13,
-                    min_pt= , ######## TO DO 
+                    min_pt= 25, ######## TO DO 
                     # filter names:
                     ######## TO DO 
-                    trigger_bits= , ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
         ),
-
+        
         #
         # e tauh (NO Triggers)
         #
@@ -105,43 +103,42 @@ def add_triggers_2016(config: od.Config) -> None:
         #
         Trigger(
             name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20",
-            id=, ######## TO DO 
+            id= 706, ######## TO DO 
             legs=[
                 TriggerLeg(
                     pdg_id=13,
-                    min_pt=, ######## TO DO 
+                    min_pt= 22, ######## TO DO 
                     # filter names:
                     ######## TO DO 
-                    trigger_bits= , ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=, ######## TO DO 
+                    min_pt= 23, ######## TO DO 
                     # filter names:
                     ######## TO DO
-                    trigger_bits=, ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
             ],
             tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
         ),
-
         Trigger(
             name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1",
-            id=, ######## TO DO 
+            id= 707, ######## TO DO 
             legs=[
                 TriggerLeg(
                     pdg_id=13,
-                    min_pt=, ######## TO DO 
+                    min_pt= 22, ######## TO DO 
                     # filter names:
                     ######## TO DO 
-                    trigger_bits= , ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=, ######## TO DO 
+                    min_pt= 23, ######## TO DO 
                     # filter names:
                     ######## TO DO
-                    trigger_bits=, ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
             ],
             tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
@@ -152,21 +149,21 @@ def add_triggers_2016(config: od.Config) -> None:
         #
         Trigger(
             name="HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg",
-            id=, ######## TO DO 
+            id= 708, ######## TO DO 
             legs=[
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=, ######## TO DO 
+                    min_pt= 38, ######## TO DO 
                     # filter names:
                     ######## TO DO 
-                    trigger_bits=, ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=, ######## TO DO 
+                    min_pt= 38, ######## TO DO 
                     # filter names:
                     ####### TO DO 
-                    trigger_bits=, ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
             ],
             applies_to_dataset=(lambda dataset_inst: dataset_inst.x.era >= "B" and dataset_inst.x.era <= "G"),
@@ -174,21 +171,21 @@ def add_triggers_2016(config: od.Config) -> None:
         ),
         Trigger(
             name="HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg",
-            id=, ######## TO DO 
+            id= 709, ######## TO DO 
             legs=[
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=, ######## TO DO 
+                    min_pt= 38, ######## TO DO 
                     # filter names:
                     ######## TO DO 
-                    trigger_bits=, ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=, ######## TO DO 
+                    min_pt= 38, ######## TO DO 
                     # filter names:
                     ######## TO DO 
-                    trigger_bits=, ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
                 ),
             ],
             applies_to_dataset=(lambda dataset_inst: dataset_inst.x.era >= "H"),
@@ -474,10 +471,10 @@ def add_triggers_2017(config: od.Config) -> None:
  
 def add_triggers_2018(config:od.Config) -> None:
     config.x.triggers = od.UniqueObjectIndex(Trigger, [
-    #
-    # single electron
-    #
-    Trigger(
+        #
+        # single electron
+        #
+        Trigger(
             name="HLT_Ele32_WPTight_Gsf",
             id=201,
             legs=[
@@ -492,7 +489,7 @@ def add_triggers_2018(config:od.Config) -> None:
             applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or dataset_inst.x.era >= "D"),
             tags={"single_trigger", "single_e", "channel_e_tau"},
         ),
-    Trigger(
+        Trigger(
             name="HLT_Ele35_WPTight_Gsf",
             id=203,
             legs=[
@@ -507,10 +504,10 @@ def add_triggers_2018(config:od.Config) -> None:
             tags={"single_trigger", "single_e", "channel_e_tau"},
         ),
     
-    #
-    # single muon
-    #
-    Trigger(
+        #
+        # single muon
+        #
+        Trigger(
             name="HLT_IsoMu24",
             id=101,
             legs=[
@@ -524,7 +521,7 @@ def add_triggers_2018(config:od.Config) -> None:
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
         ),
-    Trigger(
+        Trigger(
             name="HLT_IsoMu27",
             id=102,
             legs=[
@@ -539,10 +536,10 @@ def add_triggers_2018(config:od.Config) -> None:
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
         ),
 
-    #
-    # e tauh
-    #
-    Trigger(
+        #
+        # e tauh
+        #
+        Trigger(
             name="HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1",
             id=401,
             legs=[
@@ -568,10 +565,10 @@ def add_triggers_2018(config:od.Config) -> None:
             tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
         ),
 
-    #
-    # mu tauh
-    #
-    Trigger(
+        #
+        # mu tauh
+        #
+        Trigger(
             name="HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1",
             id=301,
             legs=[
@@ -597,11 +594,10 @@ def add_triggers_2018(config:od.Config) -> None:
             tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
         ),
 
-
-    #
-    # tauh tauh
-    #
-    Trigger(
+        #
+        # tauh tauh
+        #
+        Trigger(
             name="HLT_DoubleTightChargedIsoPFTau35_Trk1_TightID_eta2p1_Reg",
             id=502,
             legs=[
@@ -623,7 +619,7 @@ def add_triggers_2018(config:od.Config) -> None:
             applies_to_dataset=(lambda dataset_inst: dataset_inst.is_data),
             tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
         ),
-    Trigger(
+        Trigger(
             name="HLT_DoubleMediumChargedIsoPFTau40_Trk1_TightID_eta2p1_Reg",
             id=503,
             legs=[
@@ -645,7 +641,7 @@ def add_triggers_2018(config:od.Config) -> None:
             applies_to_dataset=(lambda dataset_inst: dataset_inst.is_data),
             tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
         ),
-    Trigger(
+        Trigger(
             name="HLT_DoubleTightChargedIsoPFTau40_Trk1_eta2p1_Reg",
             id=504,
             legs=[
@@ -668,10 +664,10 @@ def add_triggers_2018(config:od.Config) -> None:
             tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
         ),
    
-    #
-    # vbf
-    #
-    Trigger(
+        #
+        # vbf
+        #
+        Trigger(
             name="HLT_VBF_DoubleLooseChargedIsoPFTau20_Trk1_eta2p1_Reg",
             id=601,
             legs=[
