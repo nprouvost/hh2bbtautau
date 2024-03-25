@@ -21,7 +21,7 @@ def add_triggers_2016(config: od.Config) -> None:
         # used the triggers from https://twiki.cern.ch/twiki/bin/view/CMS/TauTrigger#Tau_Triggers_in_NanoAOD_2016  
         Trigger(
             name="HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1",
-            id=710,  ######## TO DO 
+            id=710,  ######## TO DO
             legs=[
                 TriggerLeg(
                     pdg_id=11,
@@ -180,7 +180,9 @@ def add_triggers_2016(config: od.Config) -> None:
         #
         # vbf  (NO Triggers)
         #
-        ''' commenting out single triggers because they do not exist in the NanoAODs ..... 
+    ])
+
+''' commenting out single triggers because they do not exist in the NanoAODs ..... 
         #
         # single electron
         #
@@ -259,8 +261,7 @@ def add_triggers_2016(config: od.Config) -> None:
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
         ),
         '''      
-    ])
- 
+
 def add_triggers_2017(config: od.Config) -> None:
     """
     Adds all triggers to a *config*. For the conversion from filter names to trigger bits, see
