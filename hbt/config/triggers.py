@@ -17,6 +17,171 @@ def add_triggers_2016(config: od.Config) -> None:
     """
     config.x.triggers = od.UniqueObjectIndex(Trigger, [
         #
+        # e tauh (NO Triggers in AN)
+        # used the triggers from https://twiki.cern.ch/twiki/bin/view/CMS/TauTrigger#Tau_Triggers_in_NanoAOD_2016  
+        Trigger(
+            name="HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1",
+            id=710,  ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=11,
+                    min_pt=26.0,  ######## TO DO 
+                    # filter names:
+                    # 
+                    trigger_bits=None,  ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt=22.0,  ######## TO DO 
+                    # filter names:
+                    #
+                    trigger_bits=None,  ######## TO DO 
+                ),
+            ],
+            tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
+        ),
+        Trigger(
+            name="HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20",
+            id=711,  ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=11,
+                    min_pt=26.0,  ######## TO DO 
+                    # filter names:
+                    # 
+                    trigger_bits=None,  ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt=22.0,  ######## TO DO 
+                    # filter names:
+                    #
+                    trigger_bits=None,  ######## TO DO 
+                ),
+            ],
+            tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
+        ),
+        Trigger(
+            name="HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30",
+            id=712,  ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=11,
+                    min_pt=26.0,  ######## TO DO 
+                    # filter names:
+                    # 
+                    trigger_bits=None,  ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt=32.0,  ######## TO DO 
+                    # filter names:
+                    #
+                    trigger_bits=None,  ######## TO DO 
+                ),
+            ],
+            tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
+        ),
+
+        #
+        # mu tauh
+        #
+        Trigger(
+            name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20",
+            id=706, ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=13,
+                    min_pt= 22, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt= 23, ######## TO DO 
+                    # filter names:
+                    ######## TO DO
+                    trigger_bits= None, ######## TO DO 
+                ),
+            ],
+            tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
+        ),
+        Trigger(
+            name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1",
+            id=707, ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=13,
+                    min_pt= 22, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt= 23, ######## TO DO 
+                    # filter names:
+                    ######## TO DO
+                    trigger_bits= None, ######## TO DO 
+                ),
+            ],
+            tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
+        ),
+
+        #
+        # tauh tauh
+        #
+        Trigger(
+            name="HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg",
+            id=708, ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt= 38, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt= 38, ######## TO DO 
+                    # filter names:
+                    ####### TO DO 
+                    trigger_bits= None, ######## TO DO 
+                ),
+            ],
+            applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or dataset_inst.x.era >= "B" and dataset_inst.x.era <= "G"),
+            tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
+        ),
+        Trigger(
+            name="HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg",
+            id=709, ######## TO DO 
+            legs=[
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt= 38, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
+                ),
+                TriggerLeg(
+                    pdg_id=15,
+                    min_pt= 38, ######## TO DO 
+                    # filter names:
+                    ######## TO DO 
+                    trigger_bits= None, ######## TO DO 
+                ),
+            ],
+            applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or dataset_inst.x.era >= "H"),
+            tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
+        ),
+
+        #
+        # vbf  (NO Triggers)
+        #
+        ''' commenting out single triggers because they do not exist in the NanoAODs ..... 
+        #
         # single electron
         #
         Trigger(
@@ -93,111 +258,9 @@ def add_triggers_2016(config: od.Config) -> None:
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
         ),
-        
-        #
-        # e tauh (NO Triggers)
-        #
-
-        #
-        # mu tauh
-        #
-        Trigger(
-            name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20",
-            id= 706, ######## TO DO 
-            legs=[
-                TriggerLeg(
-                    pdg_id=13,
-                    min_pt= 22, ######## TO DO 
-                    # filter names:
-                    ######## TO DO 
-                    trigger_bits= None, ######## TO DO 
-                ),
-                TriggerLeg(
-                    pdg_id=15,
-                    min_pt= 23, ######## TO DO 
-                    # filter names:
-                    ######## TO DO
-                    trigger_bits= None, ######## TO DO 
-                ),
-            ],
-            tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
-        ),
-        Trigger(
-            name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1",
-            id= 707, ######## TO DO 
-            legs=[
-                TriggerLeg(
-                    pdg_id=13,
-                    min_pt= 22, ######## TO DO 
-                    # filter names:
-                    ######## TO DO 
-                    trigger_bits= None, ######## TO DO 
-                ),
-                TriggerLeg(
-                    pdg_id=15,
-                    min_pt= 23, ######## TO DO 
-                    # filter names:
-                    ######## TO DO
-                    trigger_bits= None, ######## TO DO 
-                ),
-            ],
-            tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
-        ),
-
-        #
-        # tauh tauh
-        #
-        Trigger(
-            name="HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg",
-            id= 708, ######## TO DO 
-            legs=[
-                TriggerLeg(
-                    pdg_id=15,
-                    min_pt= 38, ######## TO DO 
-                    # filter names:
-                    ######## TO DO 
-                    trigger_bits= None, ######## TO DO 
-                ),
-                TriggerLeg(
-                    pdg_id=15,
-                    min_pt= 38, ######## TO DO 
-                    # filter names:
-                    ####### TO DO 
-                    trigger_bits= None, ######## TO DO 
-                ),
-            ],
-            applies_to_dataset=(lambda dataset_inst: dataset_inst.x.era >= "B" and dataset_inst.x.era <= "G"),
-            tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
-        ),
-        Trigger(
-            name="HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg",
-            id= 709, ######## TO DO 
-            legs=[
-                TriggerLeg(
-                    pdg_id=15,
-                    min_pt= 38, ######## TO DO 
-                    # filter names:
-                    ######## TO DO 
-                    trigger_bits= None, ######## TO DO 
-                ),
-                TriggerLeg(
-                    pdg_id=15,
-                    min_pt= 38, ######## TO DO 
-                    # filter names:
-                    ######## TO DO 
-                    trigger_bits= None, ######## TO DO 
-                ),
-            ],
-            applies_to_dataset=(lambda dataset_inst: dataset_inst.x.era >= "H"),
-            tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
-        ),
-
-        #
-        # vbf  (NO Triggers)
-        #
+        '''      
     ])
  
-
 def add_triggers_2017(config: od.Config) -> None:
     """
     Adds all triggers to a *config*. For the conversion from filter names to trigger bits, see
