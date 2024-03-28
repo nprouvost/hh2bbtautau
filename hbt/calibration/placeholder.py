@@ -14,6 +14,7 @@ from columnflow.util import maybe_import
 from hbt.calibration.tau import tec
 
 
+np = maybe_import("numpy")
 ak = maybe_import("awkward")
 
 
@@ -27,7 +28,8 @@ jec_full = jec.derive("jec_nominal", cls_dict={"mc_only": True})
         mc_weight, jec_nominal, jec_full, jer, tec, deterministic_seeds, met_phi,
     },
     produces={
-        mc_weight, jec_nominal, jec_full, jer, tec, deterministic_seeds, met_phi,
+        mc_weight, jec_nominal, jec_full, jer, tec, deterministic_seeds, met_phi, HLT_Ele25_eta2p1_WPTight_Gsf,
+        HLT_IsoMu22, HLT_IsoMu22_eta2p1, HLT_IsoTkMu22, HLT_IsoTkMu22_eta2p1,
     },
 )
 def default(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
@@ -46,6 +48,19 @@ def default(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
 
     if self.dataset_inst.is_mc:
         events = self[tec](events, **kwargs)
+
+    # adding placeholder columns for single triggers
+    HLT_Ele25_eta2p1_WPTight_Gsf = np.ones(len(events), dtype=bool)
+    HLT_IsoMu22 = np.ones(len(events), dtype=bool)
+    HLT_IsoMu22_eta2p1 = np.ones(len(events), dtype=bool)
+    HLT_IsoTkMu22 = np.ones(len(events), dtype=bool)
+    HLT_IsoTkMu22_eta2p1 = np.ones(len(events), dtype=bool)
+
+    events = set_ak_column(events, "HLT_Ele25_eta2p1_WPTight_Gsf", HLT_Ele25_eta2p1_WPTight_Gsf, value_type=np.bool)
+    events = set_ak_column(events, "HLT_IsoMu22", HLT_IsoMu22, value_type=np.bool)
+    events = set_ak_column(events, "HLT_IsoMu22_eta2p1", HLT_IsoMu22_eta2p1, value_type=np.bool)
+    events = set_ak_column(events, "HLT_IsoTkMu22", HLT_IsoTkMu22, value_type=np.bool)
+    events = set_ak_column(events, "HLT_IsoTkMu22_eta2p1", HLT_IsoTkMu22_eta2p1, value_type=np.bool)
 
     return events
 
