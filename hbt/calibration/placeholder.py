@@ -29,8 +29,8 @@ jec_full = jec.derive("jec_nominal", cls_dict={"mc_only": True})
         mc_weight, jec_nominal, jec_full, jer, tec, deterministic_seeds, met_phi,
     },
     produces={
-        mc_weight, jec_nominal, jec_full, jer, tec, deterministic_seeds, met_phi, HLT_Ele25_eta2p1_WPTight_Gsf,
-        HLT_IsoMu22, HLT_IsoMu22_eta2p1, HLT_IsoTkMu22, HLT_IsoTkMu22_eta2p1,
+        mc_weight, jec_nominal, jec_full, jer, tec, deterministic_seeds, met_phi, "HLT_Ele25_eta2p1_WPTight_Gsf",
+        "HLT_IsoMu22", "HLT_IsoMu22_eta2p1", "HLT_IsoTkMu22", "HLT_IsoTkMu22_eta2p1",
     },
 )
 def default(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
