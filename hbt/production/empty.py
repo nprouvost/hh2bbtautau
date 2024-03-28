@@ -26,7 +26,11 @@ ak = maybe_import("awkward")
         category_ids, normalization_weights,
     },
 )
-def empty(self: Producer, events: ak.Array, **kwargs) -> ak.Array:git
+def empty(
+    self: Producer,
+    events: ak.Array,
+    **kwargs,
+) -> ak.Array:
     # category ids
     events = self[category_ids](events, **kwargs)
 
