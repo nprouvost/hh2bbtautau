@@ -27,7 +27,7 @@ ak = maybe_import("awkward")
 @selector(
     uses={
         process_ids, mc_weight, increment_stats, cutflow_features, trigger_selection,
-        lepton_selection, attach_coffea_behavior, category_ids, 
+        lepton_selection, attach_coffea_behavior, category_ids,
     },
     produces={
         process_ids, mc_weight, cutflow_features, trigger_selection,

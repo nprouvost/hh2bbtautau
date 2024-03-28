@@ -152,7 +152,8 @@ def add_triggers_2016(config: od.Config) -> None:
                     trigger_bits=None,  # TO DO
                 ),
             ],
-            applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or dataset_inst.x.era >= "B" and dataset_inst.x.era <= "G"),
+            applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc),
+            applies_to_dataset=(lambda dataset_inst: dataset_inst.x.era >= "B" and dataset_inst.x.era <= "G"),
             tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
         ),
         Trigger(
