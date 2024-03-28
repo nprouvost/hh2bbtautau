@@ -85,6 +85,14 @@ def add_variables(config: od.Config) -> None:
         x_title=r"MET $\phi$",
     )
 
+    config.add_variable(
+        name="e_pt",
+        expression="Electron.pt",
+        null_value=EMPTY_FLOAT,
+        binning=(400, 0, 400),
+        x_title=r"Electron p$_{T}$",
+    )
+
     # weights
     config.add_variable(
         name="mc_weight",

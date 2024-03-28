@@ -727,9 +727,9 @@ def add_config(
 
     # add triggers
     if year == 2016:
-        #cfg.x.triggers = None
+        # cfg.x.triggers = None
         from hbt.config.triggers import add_triggers_2016
-        add_triggers_2016(cfg)    
+        add_triggers_2016(cfg)
     elif year == 2017:
         from hbt.config.triggers import add_triggers_2017
         add_triggers_2017(cfg)

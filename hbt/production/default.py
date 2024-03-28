@@ -35,12 +35,8 @@ ak = maybe_import("awkward")
 def default(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
     # category ids
 
-    try:
-        # features
-        events = self[category_ids](events, **kwargs)    
-    except:
-        import traceback; traceback.print_exc()
-        from IPython import embed; embed()
+    # features
+    events = self[category_ids](events, **kwargs)
 
     # mc-only weights
     if self.dataset_inst.is_mc:
