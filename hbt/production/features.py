@@ -73,7 +73,7 @@ def cutflow_features(
     events = set_ak_column_i32(events, "cutflow.n_ele", ak.num(events.Electron, axis=1))
     events = set_ak_column_i32(events, "cutflow.n_ele_selected", ak.num(selected_ele, axis=1))
 
-    """"
+    """
     # apply per-object selections
     selected_jet = events.Jet[object_masks["Jet"]["Jet"]]
 
@@ -85,6 +85,5 @@ def cutflow_features(
     events = set_ak_column_f32(events, "cutflow.jet1_eta", Route("eta[:,0]").apply(selected_jet, EMPTY_FLOAT))
     events = set_ak_column_f32(events, "cutflow.jet1_phi", Route("phi[:,0]").apply(selected_jet, EMPTY_FLOAT))
     events = set_ak_column_f32(events, "cutflow.jet2_pt", Route("pt[:,1]").apply(selected_jet, EMPTY_FLOAT))
-    """"
+    """
     return events
-    

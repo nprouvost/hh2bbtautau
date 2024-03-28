@@ -27,11 +27,11 @@ ak = maybe_import("awkward")
 @selector(
     uses={
         process_ids, mc_weight, increment_stats, cutflow_features, trigger_selection,
-        lepton_selection,attach_coffea_behavior, category_ids, 
+        lepton_selection, attach_coffea_behavior, category_ids, 
     },
     produces={
-        process_ids, mc_weight, cutflow_features, trigger_selection, 
-        lepton_selection,category_ids,
+        process_ids, mc_weight, cutflow_features, trigger_selection,
+        lepton_selection, category_ids,
     },
     sandbox=dev_sandbox("bash::$HBT_BASE/sandboxes/venv_columnar_tf.sh"),
     exposed=True,
@@ -101,7 +101,8 @@ def default(
     )
 
     return events, results
-'''
+
+"""
 @default.init
 def default_init(self: Selector) -> None:
     """
@@ -121,4 +122,4 @@ def default_init(self: Selector) -> None:
         self.category_ids = [1]
     else:
         raise ValueError(f"could not find inclusive category for {self.cls_name} selector")
-'''
+"""
