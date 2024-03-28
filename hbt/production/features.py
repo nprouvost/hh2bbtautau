@@ -44,6 +44,7 @@ def features(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
     """
     return events
 
+
 @producer(
     uses={
         mc_weight, category_ids, "Electron.pt",

@@ -10,6 +10,7 @@ from hbt.config.util import Trigger, TriggerLeg
 
 # 2016 triggers as per AN of CMS-HIG-20-010 (AN2018_121_v11-1)
 
+
 def add_triggers_2016(config: od.Config) -> None:
     """
     Adds all triggers to a *config*. For the conversion from filter names to trigger bits, see
@@ -95,14 +96,14 @@ def add_triggers_2016(config: od.Config) -> None:
                     min_pt=22,  # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None,  # TO DO
+                    trigger_bits=None,  # TO DO
                 ),
                 TriggerLeg(
                     pdg_id=15,
                     min_pt=23,  # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None,  # TO DO
+                    trigger_bits=None,  # TO DO
                 ),
             ],
             tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
@@ -116,14 +117,14 @@ def add_triggers_2016(config: od.Config) -> None:
                     min_pt=22,  # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None,  # TO DO
+                    trigger_bits=None,  # TO DO
                 ),
                 TriggerLeg(
                     pdg_id=15,
                     min_pt=23,  # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None,  # TO DO
+                    trigger_bits=None,  # TO DO
                 ),
             ],
             tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
@@ -138,17 +139,17 @@ def add_triggers_2016(config: od.Config) -> None:
             legs=[
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=38, # TO DO
+                    min_pt=38,  # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None,  # TO DO
+                    trigger_bits=None,  # TO DO
                 ),
                 TriggerLeg(
                     pdg_id=15,
                     min_pt=38,  # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None,  # TO DO
+                    trigger_bits=None,  # TO DO
                 ),
             ],
             applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or dataset_inst.x.era >= "B" and dataset_inst.x.era <= "G"),
@@ -163,14 +164,14 @@ def add_triggers_2016(config: od.Config) -> None:
                     min_pt=38,  # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None,  # TO DO
+                    trigger_bits=None,  # TO DO
                 ),
                 TriggerLeg(
                     pdg_id=15,
                     min_pt=38,  # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None,  # TO DO
+                    trigger_bits=None,  # TO DO
                 ),
             ],
             applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or dataset_inst.x.era >= "H"),
@@ -184,12 +185,12 @@ def add_triggers_2016(config: od.Config) -> None:
 
 
 """
-commenting out single triggers because they do not exist in the NanoAODs ..... 
+commenting out single triggers because they do not exist in the NanoAODs .....
         #
         # single electron
         #
         Trigger(
-            name="HLT_Ele25_eta2p1_WPTight_Gsf", 
+            name="HLT_Ele25_eta2p1_WPTight_Gsf",
             id= 701, # TO DO
             legs=[
                 TriggerLeg(
@@ -197,12 +198,12 @@ commenting out single triggers because they do not exist in the NanoAODs .....
                     min_pt= 28, # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None, # TO DO
+                    trigger_bits=None, # TO DO
                 ),
             ],
             tags={"single_trigger", "single_e", "channel_e_tau"},
         ),
-        
+
         #
         # single muon
         #
@@ -215,7 +216,7 @@ commenting out single triggers because they do not exist in the NanoAODs .....
                     min_pt= 25, # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None, # TO DO
+                    trigger_bits=None, # TO DO
                 ),
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
@@ -229,7 +230,7 @@ commenting out single triggers because they do not exist in the NanoAODs .....
                     min_pt= 25, # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None, # TO DO
+                    trigger_bits=None, # TO DO
                 ),
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
@@ -243,7 +244,7 @@ commenting out single triggers because they do not exist in the NanoAODs .....
                     min_pt= 25, # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None, # TO DO
+                    trigger_bits=None, # TO DO
                 ),
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
@@ -257,7 +258,7 @@ commenting out single triggers because they do not exist in the NanoAODs .....
                     min_pt= 25, # TO DO
                     # filter names:
                     # TO DO
-                    trigger_bits= None, # TO DO
+                    trigger_bits=None, # TO DO
                 ),
             ],
             tags={"single_trigger", "single_mu", "channel_mu_tau"},
@@ -537,7 +538,7 @@ def add_triggers_2017(config: od.Config) -> None:
     ])
 
 
-def add_triggers_2018(config:od.Config) -> None: 
+def add_triggers_2018(config: od.Config) -> None:
     config.x.triggers = od.UniqueObjectIndex(Trigger, [
         #
         # single electron

@@ -101,25 +101,3 @@ def default(
     )
 
     return events, results
-
-"""
-@default.init
-def default_init(self: Selector) -> None:
-    """
-    Initializes the selector by finding the id of the inclusive category if no hard-coded category
-    ids are given on class-level.
-
-    :raises ValueError: If the inclusive category cannot be found.
-    """
-    # do nothing when category ids are set
-    if self.category_ids is not None:
-        return
-
-    # find the id of the inclusive category
-    if self.inclusive_category_name in self.config_inst.categories:
-        self.category_ids = [self.config_inst.categories.get(self.inclusive_category_name).id]
-    elif 1 in self.config_inst.categories:
-        self.category_ids = [1]
-    else:
-        raise ValueError(f"could not find inclusive category for {self.cls_name} selector")
-"""
