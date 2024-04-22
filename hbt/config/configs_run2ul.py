@@ -749,6 +749,7 @@ def add_config(
             # destructure dataset_key into parts and create the lfn base directory
             dataset_id, full_campaign, tier = dataset_key.split("/")[1:]
             main_campaign, sub_campaign = full_campaign.split("-", 1)
+            # dataset_inst.data_source is either "mc" or "data"
             lfn_base = law.wlcg.WLCGDirectoryTarget(
                 f"/store/{dataset_inst.data_source}/{main_campaign}/{dataset_id}/{tier}/{sub_campaign}/0",
                 fs=f"wlcg_fs_{cfg.campaign.x.custom['name']}",
