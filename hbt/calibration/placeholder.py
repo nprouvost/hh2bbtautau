@@ -33,7 +33,7 @@ jec_full = jec.derive("jec_nominal", cls_dict={"mc_only": True})
         "HLT_IsoMu22", "HLT_IsoMu22_eta2p1", "HLT_IsoTkMu22", "HLT_IsoTkMu22_eta2p1",
     },
 )
-def default(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
+def placeholder(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
     if self.dataset_inst.is_mc:
         events = self[mc_weight](events, **kwargs)
 
@@ -57,11 +57,11 @@ def default(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
     HLT_IsoTkMu22 = np.ones(len(events), dtype=bool)
     HLT_IsoTkMu22_eta2p1 = np.ones(len(events), dtype=bool)
 
-    events = set_ak_column(events, "HLT_Ele25_eta2p1_WPTight_Gsf", HLT_Ele25_eta2p1_WPTight_Gsf, value_type=np.bool)
-    events = set_ak_column(events, "HLT_IsoMu22", HLT_IsoMu22, value_type=np.bool)
-    events = set_ak_column(events, "HLT_IsoMu22_eta2p1", HLT_IsoMu22_eta2p1, value_type=np.bool)
-    events = set_ak_column(events, "HLT_IsoTkMu22", HLT_IsoTkMu22, value_type=np.bool)
-    events = set_ak_column(events, "HLT_IsoTkMu22_eta2p1", HLT_IsoTkMu22_eta2p1, value_type=np.bool)
+    events = set_ak_column(events, "HLT_Ele25_eta2p1_WPTight_Gsf", HLT_Ele25_eta2p1_WPTight_Gsf)
+    events = set_ak_column(events, "HLT_IsoMu22", HLT_IsoMu22)
+    events = set_ak_column(events, "HLT_IsoMu22_eta2p1", HLT_IsoMu22_eta2p1)
+    events = set_ak_column(events, "HLT_IsoTkMu22", HLT_IsoTkMu22)
+    events = set_ak_column(events, "HLT_IsoTkMu22_eta2p1", HLT_IsoTkMu22_eta2p1)
 
     return events
 
