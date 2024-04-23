@@ -65,6 +65,8 @@ def add_config(
         "h",
         "hh_ggf_bbtautau",
         "graviton_hh_ggf_bbtautau_m400",
+        "graviton_hh_ggf_bbtautau_m450",
+        "graviton_hh_ggf_bbtautau_m500",
         "graviton_hh_ggf_bbtautau_m1250",
     ]
     for process_name in process_names:
@@ -142,6 +144,8 @@ def add_config(
         # signals
         "hh_ggf_bbtautau_madgraph",
         "graviton_hh_ggf_bbtautau_m400_madgraph",
+        "graviton_hh_ggf_bbtautau_m450_madgraph",
+        "graviton_hh_ggf_bbtautau_m500_madgraph",
         "graviton_hh_ggf_bbtautau_m1250_madgraph",
     ]
     for dataset_name in dataset_names:
