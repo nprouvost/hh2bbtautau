@@ -1,7 +1,9 @@
 from columnflow.inference import inference_model, ParameterType
 
 @inference_model
+
 def test_unc(self):
+
 
     #
     # categories
@@ -12,8 +14,8 @@ def test_unc(self):
         config_category="incl",
         config_variable="e_pt",
         # fake data
-        data_from_processes=["TT","dy"],
-        mc_stats=True
+        data_from_processes=["TT", "dy"],
+        mc_stats=True,
     )
 
     #

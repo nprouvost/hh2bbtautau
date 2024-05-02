@@ -20,7 +20,6 @@ set_ak_column_f32 = functools.partial(set_ak_column, value_type=np.float32)
 )
 
 def hh_mass(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
-    # attach coffea behavior for four-vector arithmetic
     events = self[attach_coffea_behavior](
         events,
         collections=["Tau", "Jet"],
