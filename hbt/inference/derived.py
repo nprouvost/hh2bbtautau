@@ -88,11 +88,11 @@ ggf_cls_dict = {
     "systematics": systematics,
     "mc_stats": True,
     "skip_data": True,
-    "config_variable": lambda inference_model, config_cat_inst: "mlscore.graviton_hh_ggf_bbtautau_m400"
+    "config_variable": lambda inference_model, config_cat_inst: "mlscore.graviton_hh_ggf_bbtautau_m400",
 }
 
 ml_score_ggf = HBTInferenceModelBase.derive(
-    f"ggf_only_{default_cls_dict['ml_model_name']}", cls_dict=ggf_cls_dict
+    f"ggf_only_{default_cls_dict['ml_model_name']}", cls_dict=ggf_cls_dict,
 )
 
 #
@@ -103,7 +103,7 @@ cls_dict = default_cls_dict.copy()
 
 cls_dict["systematics"] = rate_systematics
 # inference model with only rate uncertainties
-#sl_rates_only = default.derive("rates_only", cls_dict=cls_dict)
+# sl_rates_only = default.derive("rates_only", cls_dict=cls_dict)
 
 cls_dict["processes"] = [
     "graviton_hh_ggf_bbtautau_m400",

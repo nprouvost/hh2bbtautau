@@ -8,7 +8,7 @@ Collection of configurations that stay constant for the analysis
 signals_ggHH = {
     # "ggHH_kl_0_kt_1_sl_hbbhww", "ggHH_kl_1_kt_1_sl_hbbhww",
     # "ggHH_kl_2p45_kt_1_sl_hbbhww", "ggHH_kl_5_kt_1_sl_hbbhww",
-    "graviton_hh_ggf_bbtautau_m400"
+    "graviton_hh_ggf_bbtautau_m400",
 }
 signals_qqHH = {
     # "qqHH_CV_1_C2V_1_kl_1_sl_hbbhww", "qqHH_CV_1_C2V_1_kl_0_sl_hbbhww", "qqHH_CV_1_C2V_1_kl_2_sl_hbbhww",
