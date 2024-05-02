@@ -1,14 +1,7 @@
 from columnflow.inference import inference_model, ParameterType
 
 @inference_model
-
 def test_unc(self):
-
-
-    #
-    # categories
-    #
-
     self.add_category(
         "channel",
         config_category="incl",

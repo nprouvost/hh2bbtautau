@@ -18,7 +18,6 @@ set_ak_column_f32 = functools.partial(set_ak_column, value_type=np.float32)
         "hh_mass",
     },
 )
-
 def hh_mass(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
     events = self[attach_coffea_behavior](
         events,
