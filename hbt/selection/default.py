@@ -19,6 +19,7 @@ from columnflow.util import maybe_import, dev_sandbox
 from hbt.selection.trigger import trigger_selection
 from hbt.selection.lepton import lepton_selection
 from hbt.production.features import cutflow_features
+from hbt.selection.jet import jet_selection
 
 np = maybe_import("numpy")
 ak = maybe_import("awkward")
@@ -27,10 +28,10 @@ ak = maybe_import("awkward")
 @selector(
     uses={
         process_ids, mc_weight, increment_stats, cutflow_features, trigger_selection,
-        lepton_selection, attach_coffea_behavior, category_ids,
+        lepton_selection, attach_coffea_behavior, category_ids, jet_selection,
     },
     produces={
-        process_ids, mc_weight, cutflow_features, trigger_selection,
+        process_ids, mc_weight, cutflow_features, trigger_selection, jet_selection,
         lepton_selection, category_ids,
     },
     sandbox=dev_sandbox("bash::$HBT_BASE/sandboxes/venv_columnar_tf.sh"),
@@ -57,15 +58,12 @@ def default(
     results += trigger_results
 
     # lepton selection
-    # events, lepton_results = self[lepton_selection](events, trigger_results, **kwargs)
-    # results += lepton_results
+    events, lepton_results = self[lepton_selection](events, trigger_results, **kwargs)
+    results += lepton_results
 
-    # get indices and count selected leptons
-    # ele_idx = results.objects.Electron.Electron
-    # n_ele = ak.num(events.Electron[ele_idx], axis=1)
-
-    # select events with at least four selected leptons
-    # results.steps["two_ele"] = (n_ele) >= 2
+    # jet selection
+    events, jet_results = self[jet_selection](events, trigger_results, lepton_results, **kwargs)
+    results += jet_results
 
     # combined event selection after all steps
     event_sel = reduce(and_, results.steps.values())

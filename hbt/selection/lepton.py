@@ -10,7 +10,7 @@ from columnflow.selection import Selector, SelectionResult, selector
 from columnflow.columnar_util import set_ak_column
 from columnflow.util import DotDict, maybe_import
 
-from hbt.util import IF_NANO_V9, IF_NANO_V11
+from hbt.util import IF_NANO_V9, IF_NANO_GE_V11
 from hbt.config.util import Trigger
 
 
@@ -44,7 +44,7 @@ def trigger_object_matching(
         "Electron.pt", "Electron.eta", "Electron.phi", "Electron.dxy", "Electron.dz",
         "Electron.pfRelIso03_all",
         IF_NANO_V9("Electron.mvaFall17V2Iso_WP80", "Electron.mvaFall17V2Iso_WP90", "Electron.mvaFall17V2noIso_WP90"),
-        IF_NANO_V11("Electron.mvaIso_WP80", "Electron.mvaIso_WP90", "Electron.mvaNoIso_WP90"),
+        IF_NANO_GE_V11("Electron.mvaIso_WP80", "Electron.mvaIso_WP90", "Electron.mvaNoIso_WP90"),
         "TrigObj.pt", "TrigObj.eta", "TrigObj.phi",
     },
     exposed=False,
@@ -281,8 +281,7 @@ def tau_selection(
         min_pt = 20.0
         max_eta = 2.3
     elif is_cross_e:
-        # only existing after 2016, so force a failure in case of misconfiguration
-        min_pt = None if is_2016 else 35.0
+        min_pt = 27.0 if is_2016 else 35.0  # TODO: check for 2016 !
         max_eta = 2.1
     elif is_cross_mu:
         min_pt = 25.0 if is_2016 else 32.0
@@ -291,8 +290,7 @@ def tau_selection(
         min_pt = 40.0
         max_eta = 2.1
     elif is_cross_tau_vbf:
-        # only existing after 2016, so force in failure in case of misconfiguration
-        min_pt = None if is_2016 else 25.0
+        min_pt = 23.0 if is_2016 else 25.0  # TODO: check for 2016 !
         max_eta = 2.1
 
     # base tau mask for default and qcd sideband tau
