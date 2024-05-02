@@ -9,7 +9,7 @@ from columnflow.production.normalization import normalization_weights
 from columnflow.production.categories import category_ids
 from columnflow.util import maybe_import
 from hbt.production.hh_mass import hh_mass
-from hbt.production.btag import normalized_btag_weights
+# from hbt.production.btag import normalized_btag_weights
 # from columnflow.production.cms.electron import electron_weights
 # from columnflow.production.cms.muon import muon_weights
 # from hbt.production.features import features

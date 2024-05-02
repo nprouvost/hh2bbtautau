@@ -8,7 +8,7 @@ def grav_model(self):
     # categories
     #
 
-    for mass in ["400","450","500"]:
+    for mass in ["400", "450", "500"]:
         self.add_category(
             f"cat{mass}",
             config_category="incl",
@@ -21,7 +21,7 @@ def grav_model(self):
     #
     # processes
     #
-    for mass in ["400","450","500"]:
+    for mass in ["400", "450", "500"]:
         self.add_process(
             f"ggf_spin_2_mass_{mass}_hbbhtt",
             is_signal=True,

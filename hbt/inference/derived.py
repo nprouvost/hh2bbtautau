@@ -78,7 +78,7 @@ default_cls_dict = {
 }
 
 default = HBTInferenceModelBase.derive(
-    f"rates_only_{default_cls_dict['ml_model_name']}", cls_dict=default_cls_dict
+    f"rates_only_{default_cls_dict['ml_model_name']}", cls_dict=default_cls_dict,
 )
 
 ggf_cls_dict = {

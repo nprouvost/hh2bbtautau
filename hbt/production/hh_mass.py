@@ -23,13 +23,13 @@ def hh_mass(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
     # attach coffea behavior for four-vector arithmetic
     events = self[attach_coffea_behavior](
         events,
-        collections=[ "Tau", "Jet"],
+        collections=["Tau", "Jet"],
         **kwargs,
     )
 
     # four-vector sum of first two elements of each object collection (possibly fewer)
-    diJet = events.Jet[:,:2].sum(axis=1)
-    diTau = events.Tau[:,:2].sum(axis=1)
+    diJet = events.Jet[:, :2].sum(axis=1)
+    diTau = events.Tau[:, :2].sum(axis=1)
 
     # sum the results to form the di-higgs four-vector
     hh = diJet + diTau
@@ -45,7 +45,7 @@ def hh_mass(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
         EMPTY_FLOAT,
     )
 
-   # write out the resulting mass to the `events` array,
+    # write out the resulting mass to the `events` array,
     events = set_ak_column_f32(
         events,
         "hh_mass",
