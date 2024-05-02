@@ -1,5 +1,6 @@
 from columnflow.inference import inference_model, ParameterType
 
+
 @inference_model
 def test_unc(self):
     self.add_category(
