@@ -49,19 +49,32 @@ def placeholder(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
 
     if self.dataset_inst.is_mc:
         events = self[tec](events, **kwargs)
+    
+    HLT_Ele25_eta2p1_WPTight_Gsf = ak.any(
+        (events.Electron.pt >= 25.5) &
+        (events.Electron.eta <= 2.1),
+        axis=1,
+    )
 
-    # adding placeholder columns for single triggers
-    HLT_Ele25_eta2p1_WPTight_Gsf = np.ones(len(events), dtype=bool)
-    HLT_IsoMu22 = np.ones(len(events), dtype=bool)
-    HLT_IsoMu22_eta2p1 = np.ones(len(events), dtype=bool)
-    HLT_IsoTkMu22 = np.ones(len(events), dtype=bool)
-    HLT_IsoTkMu22_eta2p1 = np.ones(len(events), dtype=bool)
+    HLT_IsoMu22 = ak.any(
+        (events.Muon.pt >= 22.5) &
+        axis=1,
+    )
+ 
+    HLT_IsoMu22_eta2p1 = ak.any(
+        (events.Muon.pt >= 22.5) &
+        (events.Muon.eta <= 2.1),
+        axis=1,
+    )   
 
     events = set_ak_column(events, "HLT_Ele25_eta2p1_WPTight_Gsf", HLT_Ele25_eta2p1_WPTight_Gsf)
     events = set_ak_column(events, "HLT_IsoMu22", HLT_IsoMu22)
     events = set_ak_column(events, "HLT_IsoMu22_eta2p1", HLT_IsoMu22_eta2p1)
-    events = set_ak_column(events, "HLT_IsoTkMu22", HLT_IsoTkMu22)
-    events = set_ak_column(events, "HLT_IsoTkMu22_eta2p1", HLT_IsoTkMu22_eta2p1)
+    events = set_ak_column(events, "HLT_IsoTkMu22", HLT_IsoMu22)
+    events = set_ak_column(events, "HLT_IsoTkMu22_eta2p1", HLT_IsoMu22_eta2p1)
+
+    if events.Electron.pt >= 25.5 and events.Electron.eta <= 2.1:
+        events.HLT_Ele25_eta2p1_WPTight_Gsf = 1
 
     return events
 
