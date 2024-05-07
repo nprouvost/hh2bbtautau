@@ -139,11 +139,25 @@ def add_variables(config: od.Config) -> None:
         x_title="$N_{jet}$ normalized b-tag weight",
     )
     config.add_variable(
-        name="hh_mass",
+        name="hh.mass",
         null_value=EMPTY_FLOAT,
         binning=(100, 0, 500.0),
         unit="GeV",
         x_title=r"$m_{hh}$",
+    )
+    config.add_variable(
+        name="hh.pt",
+        null_value=EMPTY_FLOAT,
+        binning=(100, 0, 500.0),
+        unit="GeV",
+        x_title=r"$pT_{hh}$",
+    )
+    config.add_variable(
+        name="hh.eta",
+        null_value=EMPTY_FLOAT,
+        binning=(100, -3.0, 3.0),
+        unit="GeV",
+        x_title=r"$\eta_{hh}$",
     )
 
     # cutflow variables
