@@ -21,6 +21,6 @@ def IF_NANO_V9(self: ArrayFunction.DeferredColumn, func: ArrayFunction) -> Any |
 def IF_NANO_V11(self: ArrayFunction.DeferredColumn, func: ArrayFunction) -> Any | set[Any]:
     return self.get() if func.config_inst.campaign.x.version == 11 else None
 
-    @deferred_column
+@deferred_column
 def IF_NANO_V12(self: ArrayFunction.DeferredColumn, func: ArrayFunction) -> Any | set[Any]:
     return self.get() if func.config_inst.campaign.x.version == 12 else None
