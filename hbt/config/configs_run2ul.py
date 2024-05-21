@@ -375,7 +375,7 @@ def add_config(
     ]
 
     # name of the btag_sf correction set and jec uncertainties to propagate through
-    cfg.x.btag_sf = ("deepJet_shape", cfg.x.btag_sf_jec_sources)
+    cfg.x.btag_sf = ("deepJet_shape", cfg.x.btag_sf_jec_sources,"btagDeepFlavB")
 
     # name of the deep tau tagger
     # (used in the tec calibrator)
@@ -760,7 +760,6 @@ def add_config(
                 f"/store/{dataset_inst.data_source}/{main_campaign}/{dataset_id}/{tier}/{sub_campaign}/0",
                 fs=f"wlcg_fs_{cfg.campaign.x.custom['name']}",
             )
-
             # loop though files and interpret paths as lfns
             return [
                 lfn_base.child(basename, type="f").path
