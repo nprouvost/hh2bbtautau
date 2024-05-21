@@ -42,7 +42,7 @@ def trigger_selection(
     for trigger in self.config_inst.x.triggers:
         # skip the trigger if it does not apply to the dataset
         if not trigger.applies_to_dataset(self.dataset_inst):
-            continue     
+            continue
 
         # get bare decisions
 
@@ -50,8 +50,8 @@ def trigger_selection(
             fired = events.HLT[trigger.hlt_field] == 1
         except:
             import traceback; traceback.print_exc()
-            from IPython import embed; embed()
-        
+            from IPython import embed; embed(header="trigger selection")
+
         any_fired = any_fired | fired
 
         # get trigger objects for fired events per leg
