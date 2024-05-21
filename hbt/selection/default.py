@@ -7,12 +7,11 @@ Empty selectors + trigger selection
 from operator import and_
 from functools import reduce
 from collections import defaultdict
-
 from columnflow.selection import Selector, SelectionResult, selector
 from columnflow.selection.stats import increment_stats
 from columnflow.production.processes import process_ids
+# from columnflow.selection.cms.met_filters import met_filters
 from columnflow.production.categories import category_ids
-
 from columnflow.production.cms.mc_weight import mc_weight
 from columnflow.production.util import attach_coffea_behavior
 from columnflow.util import maybe_import, dev_sandbox
@@ -52,6 +51,10 @@ def default(
 
     # prepare the selection results that are updated at every step
     results = SelectionResult()
+    
+    # met filter selection TODO
+    # events, met_filter_results = self[met_filters](events, **kwargs)
+    # results += met_filter_results
 
     # trigger selection
     events, trigger_results = self[trigger_selection](events, **kwargs)

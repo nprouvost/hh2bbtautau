@@ -11,13 +11,12 @@ ak = maybe_import("awkward")
 
 set_ak_column_f32 = functools.partial(set_ak_column, value_type=np.float32)
 
-
 @producer(
     uses=(
-        "Tau.*", "Jet.*","HHBJet.*",category_ids,normalization_weights,attach_coffea_behavior,
+        "Electron.*", "Tau.*", "Jet.*","HHBJet.*",category_ids,normalization_weights,attach_coffea_behavior,
     ),
     produces={
-        "hh_mass",category_ids,normalization_weights,
+        "hh.*", "diTau.*", "diBJet.*", category_ids,normalization_weights,
     },
 )
 def hh_mass(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
@@ -29,6 +28,7 @@ def hh_mass(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
         collections={"HHBJet": {"type_name": "Jet"}},
         **kwargs,
     )
+    
     # mc-only weights
     if self.dataset_inst.is_mc:
         # normalization weights
@@ -37,22 +37,19 @@ def hh_mass(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
         # btag weights
         # events = self[normalized_btag_weights](events, **kwargs)
 
+    # total number of objects per event
+    n_bjets = ak.num(events.HHBJet, axis=1)
+    n_taus = ak.num(events.Tau, axis=1)
+    # mask to select events with exactly 2 taus
+    ditau_mask = (n_taus==2)
+    diBjet_mask = (n_bjets==2)
+    dihh_mask = ditau_mask & diBjet_mask
+
     # four-vector sum of first two elements of each object collection (possibly fewer)
     diBJet = events.HHBJet.sum(axis=1)
     diTau = events.Tau[:, :2].sum(axis=1)
     hh = diBJet + diTau
 
-    # total number of objects per event
-    n_bjets = ak.num(events.HHBJet, axis=1)
-    n_taus = ak.num(events.Tau, axis=1)
-
-    # hh mass taking into account only events with at least 2 b-tagged jets and 2 taus
-    # (and otherwise substituting a predefined EMPTY_FLOAT value)
-    dihiggs_mask = (n_bjets==2) & (n_taus==2)
-    dibjets_mask = (n_bjets==2)
-    ditau_mask = (n_taus==2)
-
-    # from IPython import embed; embed()
     def save_interesting_properties(
         source: ak.Array,
         target_column: str,
@@ -64,18 +61,18 @@ def hh_mass(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
             ak.where(mask, column_values, EMPTY_FLOAT)
         )
     
-    # write out the resulting mass to the `events` array,
-    events = save_interesting_properties(events, "hh.mass", hh.mass, dihiggs_mask)
-    events = save_interesting_properties(events, "hh.eta", hh.eta, dihiggs_mask)
-    events = save_interesting_properties(events, "hh.pt", hh.pt, dihiggs_mask)
+    # write out variables to the corresponding events array, applying the diTau mask
+    events = save_interesting_properties(events, "diBJet.mass", diBJet.mass, diBjet_mask)
+    events = save_interesting_properties(events, "diBJet.eta", diBJet.eta, diBjet_mask)
+    events = save_interesting_properties(events, "diBJet.pt", diBJet.pt, diBjet_mask)
 
-    events = save_interesting_properties(events, "diBJet.pt", diBJet.pt, dibjets_mask)
-    events = save_interesting_properties(events, "diBJet.eta", diBJet.eta, dibjets_mask)
-    events = save_interesting_properties(events, "diBJet.pt", diBJet.pt, dibjets_mask)
-
-    events = save_interesting_properties(events, "diTau.pt", diTau.pt, ditau_mask)
+    events = save_interesting_properties(events, "diTau.mass", diTau.mass, ditau_mask)
     events = save_interesting_properties(events, "diTau.eta", diTau.eta, ditau_mask)
     events = save_interesting_properties(events, "diTau.pt", diTau.pt, ditau_mask)
+    
+    events = save_interesting_properties(events, "hh.mass", hh.mass, dihh_mask)
+    events = save_interesting_properties(events, "hh.eta", hh.eta, dihh_mask)
+    events = save_interesting_properties(events, "hh.pt", hh.pt, dihh_mask)
 
     # return the events
     return events
