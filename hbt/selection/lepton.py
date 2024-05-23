@@ -282,8 +282,8 @@ def tau_selection(
         min_pt = 20.0
         max_eta = 2.3
     elif is_cross_e:
-        # only existing after 2016, so force a failure in case of misconfiguration
-        min_pt = None if is_2016 else 35.0
+        # only existing after 2016
+        min_pt = 0.0 if is_2016 else 35.0
         max_eta = 2.1
     elif is_cross_mu:
         min_pt = 25.0 if is_2016 else 32.0
@@ -292,8 +292,8 @@ def tau_selection(
         min_pt = 40.0
         max_eta = 2.1
     elif is_cross_tau_vbf:
-        # only existing after 2016, so force in failure in case of misconfiguration
-        min_pt = None if is_2016 else 25.0
+        # only existing after 2016
+        min_pt = 0.0 if is_2016 else 25.0
         max_eta = 2.1
 
     # base tau mask for default and qcd sideband tau

@@ -2,36 +2,33 @@ from columnflow.inference import inference_model, ParameterType
 
 
 @inference_model
-def grav_model(self):
-
-    #
-    # categories
-    #
-
-    for mass in ["400", "450", "500"]:
-        self.add_category(
-            f"cat{mass}",
-            config_category="incl",
-            config_variable="jet1_pt",
-            # fake data from TT
-            data_from_processes=["TT"],
-            mc_stats=True,
-        )
+def test_unc(self):
+    self.add_category(
+        "channel",
+        config_category="incl",
+        config_variable="e_pt",
+        # fake data
+        data_from_processes=["TT", "dy"],
+        mc_stats=True,
+    )
 
     #
     # processes
     #
-    for mass in ["400", "450", "500"]:
-        self.add_process(
-            f"ggf_spin_2_mass_{mass}_hbbhtt",
-            is_signal=True,
-            config_process=f"graviton_hh_ggf_bbtautau_m{mass}",
-            category=f"cat{mass}",
-        )
+    self.add_process(
+        "dy",
+        config_process="dy",
+    )
 
     self.add_process(
         "TT",
         config_process="tt_sl",
+    )
+
+    self.add_process(
+        "hh_ggf",
+        is_signal=True,
+        config_process="hh_ggf_bbtautau",
     )
 
     #
@@ -52,11 +49,22 @@ def grav_model(self):
         )
         self.add_parameter_to_group(unc_name, "experiment")
 
-    # a custom asymmetric uncertainty that is converted from rate to shape
+    # a custom asymmetric uncertainty
+    """
     self.add_parameter(
         "QCDscale_ttbar",
         process="TT",
-        type=ParameterType.rate_gauss,
+        type=ParameterType.shape,
+        transformations=[ParameterTransformation.effect_from_rate],
         effect=(0.85, 1.1),
     )
     self.add_parameter_to_group("QCDscale_ttbar", "experiment")
+    """
+    # tune uncertainty
+    self.add_parameter(
+        "tune",
+        process="TT",
+        type=ParameterType.shape,
+        config_shift_source="tune",
+    )
+    self.add_parameter_to_group("tune", "experiment")

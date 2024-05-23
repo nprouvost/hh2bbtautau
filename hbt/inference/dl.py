@@ -141,7 +141,7 @@ cls_dict["processes"] = [
 cls_dict["config_categories"] = [
     # "2e__ml_ggHH_kl_1_kt_1_dl_hbbhww",
     # "2e__ml_tt",
-    "2j"
+    "2j",
 ]
 
 cls_dict["config_variable"] = "jet_pt"

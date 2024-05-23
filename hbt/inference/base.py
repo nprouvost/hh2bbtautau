@@ -235,4 +235,3 @@ class HBTInferenceModelBase(InferenceModel):
                     )),
                 )
             self.add_parameter_to_group(syst_name, "theory")
-
