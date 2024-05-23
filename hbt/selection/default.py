@@ -98,7 +98,6 @@ def default(
         weight_map["sum_mc_weight_selected"] = (events.mc_weight, Ellipsis)
         # groups
         group_map = {
-            **group_map,
             # per process
             "process": {
                 "values": events.process_id,
