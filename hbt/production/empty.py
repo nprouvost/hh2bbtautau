@@ -17,12 +17,13 @@ from columnflow.util import maybe_import
 
 ak = maybe_import("awkward")
 
+
 @producer(
     uses={
-        category_ids,
+        category_ids, normalization_weights,
     },
     produces={
-        category_ids,
+        category_ids, normalization_weights,
     },
 )
 def empty(
