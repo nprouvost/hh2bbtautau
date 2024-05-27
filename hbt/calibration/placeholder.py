@@ -93,7 +93,7 @@ def placeholder(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
     events = set_ak_column(
         events,
         "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1",
-        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1,
     )
 
     return events
