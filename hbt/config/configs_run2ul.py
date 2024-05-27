@@ -178,6 +178,7 @@ def add_config(
     cfg.x.default_inference_model = "test_no_shifts"
     cfg.x.default_categories = ("incl",)
     cfg.x.default_variables = ("n_jet", "n_btag")
+    cfg.x.default_weight_producer = "all_weights"
 
     # process groups for conveniently looping over certain processs
     # (used in wrapper_factory and during plotting)
@@ -376,7 +377,7 @@ def add_config(
     ]
 
     # name of the btag_sf correction set and jec uncertainties to propagate through
-    cfg.x.btag_sf = ("deepJet_shape", cfg.x.btag_sf_jec_sources)
+    cfg.x.btag_sf = ("deepJet_shape", cfg.x.btag_sf_jec_sources, "btagDeepFlavB")
 
     # name of the deep tau tagger
     # (used in the tec calibrator)
@@ -567,9 +568,6 @@ def add_config(
 
         # jet energy correction
         "jet_jerc": (f"{json_mirror}/POG/JME/{year}{corr_postfix}_UL/jet_jerc.json.gz", "v1"),
-
-        # pileup weight corrections
-        "pu_sf": (f"{json_mirror}/POG/LUM/{year}{corr_postfix}_UL/puWeights.json.gz", "v1"),
 
         # tau energy correction and scale factors
         "tau_sf": (f"{json_mirror}/POG/TAU/{year}{corr_postfix}_UL/tau.json.gz", "v1"),
