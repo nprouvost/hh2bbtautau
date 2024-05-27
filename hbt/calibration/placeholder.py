@@ -14,11 +14,13 @@ ak = maybe_import("awkward")
 
 
 @calibrator(
-    uses={"Electron.pt", "Electron.eta", "Muon.pt", "Muon.eta", "Tau.pt",
+    uses={
+        "Electron.pt", "Electron.eta", "Muon.pt", "Muon.eta", "Tau.pt",
     },
     produces={
         "HLT_Ele25_eta2p1_WPTight_Gsf", "HLT_IsoMu22", "HLT_IsoMu22_eta2p1", "HLT_IsoTkMu22", "HLT_IsoTkMu22_eta2p1",
-        "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30", "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20", "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1",
+        "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30", "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20",
+        "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1",
     },
 )
 def placeholder(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
@@ -78,8 +80,20 @@ def placeholder(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
     events = set_ak_column(events, "HLT_IsoMu22_eta2p1", HLT_IsoMu22_eta2p1)
     events = set_ak_column(events, "HLT_IsoTkMu22", HLT_IsoMu22)
     events = set_ak_column(events, "HLT_IsoTkMu22_eta2p1", HLT_IsoMu22_eta2p1)
-    events = set_ak_column(events, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30", HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30)
-    events = set_ak_column(events, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20", HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20)
-    events = set_ak_column(events, "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1", HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1)
+    events = set_ak_column(
+        events,
+        "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30",
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30,
+    )
+    events = set_ak_column(
+        events,
+        "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20",
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20,
+    )
+    events = set_ak_column(
+        events,
+        "HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1",
+        HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1
+    )
 
     return events
