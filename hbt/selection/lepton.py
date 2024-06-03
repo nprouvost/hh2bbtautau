@@ -84,6 +84,8 @@ def electron_selection(
     # obtain mva flags, which might be located at different routes, depending on the nano version
     if "mvaIso_WP80" in events.Electron.fields:
         # >= nano v10
+        # beware that the available Iso should be mvaFall17V2 for run2 files, not Winter22V1,
+        # check this in original root files if necessary
         mva_iso_wp80 = events.Electron.mvaIso_WP80
         mva_iso_wp90 = events.Electron.mvaIso_WP90
         # mva_noniso_wp90 = events.Electron.mvaNoIso_WP90

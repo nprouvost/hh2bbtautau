@@ -103,7 +103,7 @@ def add_config(
         "tt_sl_powheg",
         "tt_dl_powheg",
         "tt_fh_powheg",
-        "ttz_llnunu_amcatnlo",
+        "ttz_llnunu_m10_amcatnlo",
         "ttw_nlu_amcatnlo",
         "ttw_qq_amcatnlo",
         "ttzz_madgraph",
@@ -113,17 +113,20 @@ def add_config(
         "st_tchannel_tbar_powheg",
         "st_twchannel_t_powheg",
         "st_twchannel_tbar_powheg",
+
+        # s-channel only available for run2_2017_nano_v9
         "st_schannel_lep_amcatnlo",
         "st_schannel_had_amcatnlo",
-        "dy_lep_pt50To100_amcatnlo",
-        "dy_lep_pt100To250_amcatnlo",
-        "dy_lep_pt250To400_amcatnlo",
-        "dy_lep_pt400To650_amcatnlo",
+
+        "dy_lep_pt50to100_amcatnlo",
+        "dy_lep_pt100to250_amcatnlo",
+        "dy_lep_pt250to400_amcatnlo",
+        "dy_lep_pt400to650_amcatnlo",
         "dy_lep_pt650_amcatnlo",
         "w_lnu_madgraph",
-        "ewk_wm_lnu_madgraph",
-        "ewk_w_lnu_madgraph",
-        "ewk_z_ll_madgraph",
+        "ewk_wm_lnu_m50_madgraph",
+        "ewk_w_lnu_m50_madgraph",
+        "ewk_z_ll_m50_madgraph",
         "zz_pythia",
         "wz_pythia",
         "ww_pythia",
@@ -131,16 +134,16 @@ def add_config(
         "wzz_amcatnlo",
         "wwz_amcatnlo",
         "www_amcatnlo",
-        #"h_ggf_tautau_powheg",
-        #"h_vbf_tautau_powheg",
-        #"zh_tautau_powheg",
-        #"zh_bb_powheg",
-        #"wph_tautau_powheg",
-        #"wmh_tautau_powheg",
-        #"ggzh_llbb_powheg",
-        #"tth_tautau_powheg",
-        #"tth_bb_powheg",
-        #"tth_nonbb_powheg",
+        "h_ggf_tautau_powheg",
+        "h_vbf_tautau_powheg",
+        "zh_tautau_powheg",
+        "zh_llbb_powheg",
+        "wph_tautau_powheg",
+        "wmh_tautau_powheg",
+        "ggzh_llbb_powheg",
+        "tth_tautau_powheg",
+        "tth_bb_powheg",
+        "tth_nonbb_powheg",
         # signals
         "hh_ggf_bbtautau_madgraph",
         "graviton_hh_ggf_bbtautau_m400_madgraph",
@@ -178,6 +181,7 @@ def add_config(
     cfg.x.default_inference_model = "test_no_shifts"
     cfg.x.default_categories = ("incl",)
     cfg.x.default_variables = ("n_jet", "n_btag")
+    cfg.x.default_weight_producer = "all_weights"
 
     # process groups for conveniently looping over certain processs
     # (used in wrapper_factory and during plotting)
@@ -211,19 +215,26 @@ def add_config(
 
     # lumi values in inverse pb
     # https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun2?rev=2#Combination_and_correlations
+    # difference pre-post VFP: https://cds.cern.ch/record/2854610/files/DP2023_006.pdf
     if year == 2016:
-        cfg.x.luminosity = Number(36310, {
-            "lumi_13TeV_2016": 0.01j,
-            "lumi_13TeV_correlated": 0.006j,
-        })
+        if campaign.x.vfp == "pre":
+            cfg.x.luminosity = Number(19_500, {
+                "lumi_13TeV_2016": 0.01j,
+                "lumi_13TeV_correlated": 0.006j,
+            })
+        if campaign.x.vfp == "post":
+            cfg.x.luminosity = Number(16_800, {
+                "lumi_13TeV_2016": 0.01j,
+                "lumi_13TeV_correlated": 0.006j,
+            })
     elif year == 2017:
-        cfg.x.luminosity = Number(41480, {
+        cfg.x.luminosity = Number(41_480, {
             "lumi_13TeV_2017": 0.02j,
             "lumi_13TeV_1718": 0.006j,
             "lumi_13TeV_correlated": 0.009j,
         })
     else:  # 2018
-        cfg.x.luminosity = Number(59830, {
+        cfg.x.luminosity = Number(59_830, {
             "lumi_13TeV_2017": 0.015j,
             "lumi_13TeV_1718": 0.002j,
             "lumi_13TeV_correlated": 0.02j,
@@ -257,7 +268,7 @@ def add_config(
 
     # jec configuration
     # https://twiki.cern.ch/twiki/bin/view/CMS/JECDataMC?rev=201
-    jerc_postfix = "APV" if year == 2016 and campaign.x.vfp == "pre" else ""
+    jerc_postfix = "APV" if year == 2016 and campaign.x.vfp == "pre" else ""  # changed post to pre
     cfg.x.jec = DotDict.wrap({
         "campaign": f"Summer19UL{year2}{jerc_postfix}",
         "version": {2016: "V7", 2017: "V5", 2018: "V5"}[year],
@@ -326,6 +337,7 @@ def add_config(
 
     # JER
     # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution?rev=107
+
     cfg.x.jer = DotDict.wrap({
         "campaign": {2016: "Summer20", 2017: "Summer19", 2018: "Summer19"}[year] + f"UL{year2}{jerc_postfix}",
         "version": "JR" + {2016: "V3", 2017: "V2", 2018: "V2"}[year],
@@ -375,7 +387,7 @@ def add_config(
     ]
 
     # name of the btag_sf correction set and jec uncertainties to propagate through
-    cfg.x.btag_sf = ("deepJet_shape", cfg.x.btag_sf_jec_sources,"btagDeepFlavB")
+    cfg.x.btag_sf = ("deepJet_shape", cfg.x.btag_sf_jec_sources, "btagDeepFlavB")
 
     # name of the deep tau tagger
     # (used in the tec calibrator)
@@ -756,6 +768,7 @@ def add_config(
             # destructure dataset_key into parts and create the lfn base directory
             dataset_id, full_campaign, tier = dataset_key.split("/")[1:]
             main_campaign, sub_campaign = full_campaign.split("-", 1)
+            # dataset_inst.data_source is either "mc" or "data"
             lfn_base = law.wlcg.WLCGDirectoryTarget(
                 f"/store/{dataset_inst.data_source}/{main_campaign}/{dataset_id}/{tier}/{sub_campaign}/0",
                 fs=f"wlcg_fs_{cfg.campaign.x.custom['name']}",

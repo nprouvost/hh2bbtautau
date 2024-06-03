@@ -30,7 +30,7 @@ analysis_hbt.x.bash_sandboxes = [
 # files of cmssw sandboxes that might be required by remote tasks
 # (used in cf.HTCondorWorkflow)
 analysis_hbt.x.cmssw_sandboxes = [
-    #"$CF_BASE/sandboxes/cmssw_default.sh",
+    "$CF_BASE/sandboxes/cmssw_default.sh",
 ]
 
 # config groups for conveniently looping over certain configs
@@ -64,10 +64,29 @@ add_config_run2ul(
     limit_dataset_files=2,
 )
 
+# 2016 post
+from cmsdb.campaigns.run2_2016_nano_uhh_v12 import campaign_run2_2016_nano_uhh_v12
+
+# v12 uhh config with full datasets
+add_config_run2ul(
+    analysis_hbt,
+    campaign_run2_2016_nano_uhh_v12.copy(),
+    config_name=campaign_run2_2016_nano_uhh_v12.name,
+    config_id=3,
+)
+
+# v12 uhh config with limited number of files for faster prototyping
+add_config_run2ul(
+    analysis_hbt,
+    campaign_run2_2016_nano_uhh_v12.copy(),
+    config_name=f"{campaign_run2_2016_nano_uhh_v12.name}_limited",
+    config_id=13,
+    limit_dataset_files=2,
+)
+
 # 2017
 from cmsdb.campaigns.run2_2017_nano_v9 import campaign_run2_2017_nano_v9
 from cmsdb.campaigns.run2_2017_nano_uhh_v11 import campaign_run2_2017_nano_uhh_v11
-
 
 # default v9 config
 add_config_run2ul(

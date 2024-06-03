@@ -10,7 +10,6 @@ from columnflow.calibration.cms.jets import jec, jer
 from columnflow.production.cms.mc_weight import mc_weight
 from columnflow.production.cms.seeds import deterministic_seeds
 from columnflow.util import maybe_import
-from columnflow.columnar_util import set_ak_column
 from hbt.calibration.tau import tec
 
 
@@ -48,6 +47,7 @@ def default(self: Calibrator, events: ak.Array, **kwargs) -> ak.Array:
         events = self[tec](events, **kwargs)
 
     return events
+
 
 @calibrator(
     uses=set(),
