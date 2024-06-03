@@ -215,7 +215,18 @@ def add_config(
 
     # lumi values in inverse pb
     # https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun2?rev=2#Combination_and_correlations
+    # difference pre-post VFP: https://cds.cern.ch/record/2854610/files/DP2023_006.pdf
     if year == 2016:
+        # if campaign.x.vfp == "pre":
+        #     cfg.x.luminosity = Number(19500, {
+        #         "lumi_13TeV_2016": 0.01j,
+        #         "lumi_13TeV_correlated": 0.006j,
+        #     })
+        # if campaign.x.vfp == "post":
+        #     cfg.x.luminosity = Number(16800, {
+        #         "lumi_13TeV_2016": 0.01j,
+        #         "lumi_13TeV_correlated": 0.006j,
+        #     })
         cfg.x.luminosity = Number(36310, {
             "lumi_13TeV_2016": 0.01j,
             "lumi_13TeV_correlated": 0.006j,
