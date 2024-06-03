@@ -217,28 +217,24 @@ def add_config(
     # https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun2?rev=2#Combination_and_correlations
     # difference pre-post VFP: https://cds.cern.ch/record/2854610/files/DP2023_006.pdf
     if year == 2016:
-        # if campaign.x.vfp == "pre":
-        #     cfg.x.luminosity = Number(19500, {
-        #         "lumi_13TeV_2016": 0.01j,
-        #         "lumi_13TeV_correlated": 0.006j,
-        #     })
-        # if campaign.x.vfp == "post":
-        #     cfg.x.luminosity = Number(16800, {
-        #         "lumi_13TeV_2016": 0.01j,
-        #         "lumi_13TeV_correlated": 0.006j,
-        #     })
-        cfg.x.luminosity = Number(36310, {
-            "lumi_13TeV_2016": 0.01j,
-            "lumi_13TeV_correlated": 0.006j,
-        })
+        if campaign.x.vfp == "pre":
+            cfg.x.luminosity = Number(19_500, {
+                "lumi_13TeV_2016": 0.01j,
+                "lumi_13TeV_correlated": 0.006j,
+            })
+        if campaign.x.vfp == "post":
+            cfg.x.luminosity = Number(16_800, {
+                "lumi_13TeV_2016": 0.01j,
+                "lumi_13TeV_correlated": 0.006j,
+            })
     elif year == 2017:
-        cfg.x.luminosity = Number(41480, {
+        cfg.x.luminosity = Number(41_480, {
             "lumi_13TeV_2017": 0.02j,
             "lumi_13TeV_1718": 0.006j,
             "lumi_13TeV_correlated": 0.009j,
         })
     else:  # 2018
-        cfg.x.luminosity = Number(59830, {
+        cfg.x.luminosity = Number(59_830, {
             "lumi_13TeV_2017": 0.015j,
             "lumi_13TeV_1718": 0.002j,
             "lumi_13TeV_correlated": 0.02j,
