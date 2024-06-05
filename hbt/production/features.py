@@ -43,15 +43,16 @@ def features(self: Producer, events: ak.Array, **kwargs) -> ak.Array:
 
 @producer(
     uses={
-        mc_weight, category_ids, "Electron.pt",
+        mc_weight, category_ids,
         # nano columns
-        "Jet.pt", "Jet.eta", "Jet.phi",
+        "Jet.pt", "Jet.eta", "Jet.phi", "Electron.pt",
     },
     produces={
-        mc_weight, category_ids, "cutflow.n_ele", "cutflow.n_ele_selected",
+        mc_weight, category_ids,
         # new columns
         "cutflow.n_jet", "cutflow.n_jet_selected", "cutflow.ht", "cutflow.jet1_pt",
-        "cutflow.jet1_eta", "cutflow.jet1_phi", "cutflow.jet2_pt",
+        "cutflow.jet1_eta", "cutflow.jet1_phi", "cutflow.jet2_pt", "cutflow.n_ele",
+        "cutflow.n_ele_selected",
     },
 )
 def cutflow_features(
