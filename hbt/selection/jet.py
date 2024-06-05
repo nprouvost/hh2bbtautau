@@ -211,7 +211,7 @@ def jet_selection(
                 "VBFJet": vbfjet_indices,
             },
             "FatJet": {
-                "FatJet": fatjet_indices,  # updated: not from Jet column anymore
+                "FatJet": fatjet_indices,
             },
             "SubJet": {
                 "SubJet1": subjet_indices[..., 0],

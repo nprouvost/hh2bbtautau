@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # HH → bb𝜏𝜏
 
 [![Lint and test](https://github.com/uhh-cms/hh2bbtautau/actions/workflows/lint_and_test.yaml/badge.svg)](https://github.com/uhh-cms/hh2bbtautau/actions/workflows/lint_and_test.yaml)
@@ -50,17 +49,3 @@ law run cf.CreateDatacards \
 
 - Source hosted at [GitHub](https://github.com/uhh-cms/hh2bbtautau)
 - Report issues, questions, feature requests on [GitHub Issues](https://github.com/uhh-cms/hh2bbtautau/issues)
-=======
-# cmsdb
-
-[![Lint and test](https://github.com/uhh-cms/cmsdb/actions/workflows/lint_and_test.yaml/badge.svg)](https://github.com/uhh-cms/cmsdb/actions/workflows/lint_and_test.yaml)
-[![License](https://img.shields.io/github/license/uhh-cms/cmsdb.svg)](https://github.com/uhh-cms/cmsdb/blob/master/LICENSE)
-
-Database of physics processes, cross sections and scientific constants as well as CMS-related campaign information on datasets.
-
-
-#### Dependencies
-
-- [order](https://github.com/riga/order) is used to model the relations between physics meta data containers (datasets, processes, systematics, ...).
-- [scinum](https://github.com/riga/scinum)'s `Number` is the basis for numeric values with multiple sources of systematic uncertainties attributed to them.
->>>>>>> 4ced1aebe036fdcaf1403d00a04355f9b73da8f8

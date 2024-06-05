@@ -17,22 +17,18 @@
 *.pb
 *.out
 *.parquet
-<<<<<<< HEAD
 .env_*.sh
 .env_*.sh.tmp
 .coverage
 coverage*.xml
 requirements_user.txt
 law_user.cfg
-=======
->>>>>>> 4ced1aebe036fdcaf1403d00a04355f9b73da8f8
 __pycache__
 dist
 build
 static
 docs/_build
 tmp
-<<<<<<< HEAD
 store
 software
 data
@@ -41,5 +37,4 @@ data
 .setups
 .mypy_cache
 .vscode
-=======
->>>>>>> 4ced1aebe036fdcaf1403d00a04355f9b73da8f8
+.python-version
