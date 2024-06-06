@@ -57,7 +57,7 @@ def electron_selection(
     **kwargs,
 ) -> tuple[ak.Array, ak.Array]:
     """
-    Electron selection returning two sets of indidces for default and veto electrons.
+    Electron selection returning two sets of indices for default and veto electrons.
     See https://twiki.cern.ch/twiki/bin/view/CMS/EgammaNanoAOD?rev=4
     """
     is_single = trigger.has_tag("single_e")

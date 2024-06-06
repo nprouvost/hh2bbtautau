@@ -11,7 +11,7 @@ from hbt.config.util import Trigger, TriggerLeg
 # 2016 triggers as per AN of CMS-HIG-20-010 (AN2018_121_v11-1)
 
 
-def add_triggers_2016_pre(config: od.Config, era: str) -> None:
+def add_triggers_2016(config: od.Config, era: str) -> None:
     """
     Adds all triggers to a *config*. For the conversion from filter names to trigger bits, see
     https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/NanoAOD/python/triggerObjects_cff.py.
@@ -39,6 +39,10 @@ def add_triggers_2016_pre(config: od.Config, era: str) -> None:
                     trigger_bits=None,  # TODO
                 ),
             ],
+            applies_to_dataset=(
+                lambda dataset_inst: dataset_inst.is_mc or (dataset_inst.x.era <= "E")  # TODO: to be checked!
+                # does not exist for run F on but should only be used until run 276215 -> which era?
+            ),
             tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
         ),
         Trigger(
@@ -60,6 +64,10 @@ def add_triggers_2016_pre(config: od.Config, era: str) -> None:
                     trigger_bits=None,  # TODO
                 ),
             ],
+            applies_to_dataset=(
+                lambda dataset_inst: dataset_inst.is_data and dataset_inst.x.era <= "E"  # TODO: to be checked!
+                # does not exist for run F on but should only be used between run 276215 and 278270 -> which eras?
+            ),
             tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
         ),
         Trigger(
@@ -81,6 +89,10 @@ def add_triggers_2016_pre(config: od.Config, era: str) -> None:
                     trigger_bits=None,  # TODO
                 ),
             ],
+            applies_to_dataset=(
+                lambda dataset_inst: dataset_inst.is_data and dataset_inst.x.era >= "E"  # TODO: to be checked!
+                # does not exist until run E but should only be used after run 278270 -> which era?
+            ),
             tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
         ),
 
