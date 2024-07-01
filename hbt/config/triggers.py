@@ -8,41 +8,58 @@ import order as od
 
 from hbt.config.util import Trigger, TriggerLeg
 
-# 2016 triggers as per AN of CMS-HIG-20-010 (AN2018_121_v11-1)
+# 2016 triggers from twiki for tau triggers, cclub marked as comments
+# and from cclub for single electron and muon triggers
+# cclub link: https://gitlab.cern.ch/cclubbtautau/AnalysisCore/-/blob/main/data/HHtriggers_Run2.json
 
 
 def add_triggers_2016(config: od.Config, era: str) -> None:
     """
     Adds all triggers to a *config*. For the conversion from filter names to trigger bits, see
     https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/NanoAOD/python/triggerObjects_cff.py.
+
+    -> pinning commit to (probably) nanov12:
+    https://github.com/cms-sw/cmssw/blob/7648470aa10c1bf28c0898b92ed902f754455d51/PhysicsTools/NanoAOD/python/triggerObjects_cff.py
+    and for changes specifically related to year 2016:
+    https://github.com/cms-sw/cmssw/blob/7648470aa10c1bf28c0898b92ed902f754455d51/PhysicsTools/NanoAOD/python/triggerObjects_cff.py#L266C1-L294C1
+
+    or in the last version: (19.06.2024)
+    https://github.com/cms-sw/cmssw/blob/9030bf6e5bc33e617ca03ac40e8586ea8b86abc2/PhysicsTools/NanoAOD/python/triggerObjects_cff.py#L280C1-L307C2
+
+    Remark: links to this page in https://twiki.cern.ch/twiki/bin/view/CMS/TauTrigger?rev=101
+    were meant for https://github.com/cms-sw/cmssw/blob/b5810c920f0f82de8e7a8fd1a7744e6626cb959b/PhysicsTools/NanoAOD/python/triggerObjects_cff.py # noqa
+    but the code has obviously been updated, so lines do not match anymore in newer commits.
     """
     config.x.triggers = od.UniqueObjectIndex(Trigger, [
         #
-        # e tauh (NO Triggers in AN)
-        # used the triggers from https://twiki.cern.ch/twiki/bin/view/CMS/TauTrigger#Tau_Triggers_in_NanoAOD_2016
+        # e tauh (NO Triggers in and cclub)
+        # used the triggers from https://twiki.cern.ch/twiki/bin/view/CMS/TauTrigger?rev=101#Tau_Triggers_in_NanoAOD_2016 # noqa
         Trigger(
             name="HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1",
             id=710,  # TODO
             legs=[
                 TriggerLeg(
                     pdg_id=11,
-                    min_pt=26.0,  # TODO
+                    min_pt=24.0,
                     # filter names:
-                    #
-                    trigger_bits=None,  # TODO
+                    # hltOverlapFilterSingleIsoEle24WPLooseGsfLooseIsoPFTau20
+                    # (OverlapFilter PFTau)
+                    trigger_bits=8,  # 3
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=22.0,  # TODO
+                    # no min_pt for TrigObj in twiki
                     # filter names:
-                    #
-                    trigger_bits=None,  # TODO
+                    # hltPFTau20TrackLooseIso
+                    # hltOverlapFilterSingleIsoEle24WPLooseGsfLooseIsoPFTau20
+                    # (LooseIso, OverlapFilter IsoEle)
+                    trigger_bits=1 + 64,  # 0 + 6
                 ),
             ],
             applies_to_dataset=(
-                lambda dataset_inst: dataset_inst.is_mc or (dataset_inst.x.era <= "E")  # TODO: to be checked!
-                # does not exist for run F on but should only be used until run 276215 -> which era?
+                lambda dataset_inst: dataset_inst.is_mc or (dataset_inst.x.era <= "E")
             ),
+            run_range=(None, 276214),
             tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
         ),
         Trigger(
@@ -51,23 +68,26 @@ def add_triggers_2016(config: od.Config, era: str) -> None:
             legs=[
                 TriggerLeg(
                     pdg_id=11,
-                    min_pt=26.0,  # TODO
+                    min_pt=24.0,
                     # filter names:
-                    #
-                    trigger_bits=None,  # TODO
+                    # hltOverlapFilterSingleIsoEle24WPLooseGsfLooseIsoPFTau20
+                    # (OverlapFilter PFTau)
+                    trigger_bits=8,  # 3
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=22.0,  # TODO
+                    # no min_pt for TrigObj in twiki
                     # filter names:
-                    #
-                    trigger_bits=None,  # TODO
+                    # hltPFTau20TrackLooseIso
+                    # hltOverlapFilterSingleIsoEle24WPLooseGsfLooseIsoPFTau20
+                    # (LooseIso, OverlapFilter IsoEle)
+                    trigger_bits=1 + 64,  # 0 + 6
                 ),
             ],
             applies_to_dataset=(
-                lambda dataset_inst: dataset_inst.is_data and dataset_inst.x.era <= "E"  # TODO: to be checked!
-                # does not exist for run F on but should only be used between run 276215 and 278270 -> which eras?
+                lambda dataset_inst: dataset_inst.is_data and dataset_inst.x.era <= "E"
             ),
+            run_range=(276215, 278269),
             tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
         ),
         Trigger(
@@ -76,67 +96,82 @@ def add_triggers_2016(config: od.Config, era: str) -> None:
             legs=[
                 TriggerLeg(
                     pdg_id=11,
-                    min_pt=26.0,  # TODO
+                    min_pt=24.0,
                     # filter names:
-                    #
-                    trigger_bits=None,  # TODO
+                    # hltOverlapFilterSingleIsoEle24WPLooseGsfLooseIsoPFTau20
+                    # (OverlapFilter PFTau)
+                    trigger_bits=8,  # 3
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=32.0,  # TODO
+                    # no min_pt for TrigObj in twiki
                     # filter names:
-                    #
-                    trigger_bits=None,  # TODO
+                    # hltPFTau20TrackLooseIso
+                    # hltOverlapFilterSingleIsoEle24WPLooseGsfLooseIsoPFTau20
+                    # (LooseIso, OverlapFilter IsoEle)
+                    trigger_bits=1 + 64,  # 0 + 6
                 ),
             ],
             applies_to_dataset=(
-                lambda dataset_inst: dataset_inst.is_data and dataset_inst.x.era >= "E"  # TODO: to be checked!
-                # does not exist until run E but should only be used after run 278270 -> which era?
+                lambda dataset_inst: dataset_inst.is_data and dataset_inst.x.era >= "E"
             ),
+            run_range=(278270, None),
             tags={"cross_trigger", "cross_e_tau", "channel_e_tau"},
         ),
 
         #
         # mu tauh
         #
-        Trigger(
-            name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20",
-            id=706,  # TODO
-            legs=[
-                TriggerLeg(
-                    pdg_id=13,
-                    min_pt=22,  # TODO
-                    # filter names:
-                    # TODO
-                    trigger_bits=None,  # TODO
-                ),
-                TriggerLeg(
-                    pdg_id=15,
-                    min_pt=23,  # TODO
-                    # filter names:
-                    # TODO
-                    trigger_bits=None,  # TODO
-                ),
-            ],
-            tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
-        ),
+
+        # # not in twiki, but in analysis, values taken from cclub
+        # # -> analysis does not give any filter bits
+        # Trigger(
+        #     name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20",
+        #     id=706,  # TODO
+        #     legs=[
+        #         TriggerLeg(
+        #             pdg_id=13,
+        #             min_pt=20,
+        #             max_eta=2.1 # not used by trigger selection, to add? # TODO
+        #             # filter names:
+        #             # TODO
+        #             trigger_bits=None,
+        #         ),
+        #         TriggerLeg(
+        #             pdg_id=15,
+        #             min_pt=25,
+        #             max_eta=2.1 # not used by trigger selection, to add? # TODO
+        #             # filter names:
+        #             # TODO
+        #             trigger_bits=None,
+        #         ),
+        #     ],
+        #     tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
+        # ),
+
+        # -> analysis does not give any filter bits
         Trigger(
             name="HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1",
             id=707,  # TODO
             legs=[
                 TriggerLeg(
                     pdg_id=13,
-                    min_pt=22,  # TODO
+                    min_pt=19,  # cclub has min_pt=20,
+                    # cclub has max_eta=2.1 # to add to trigger selection? # TODO
                     # filter names:
-                    # TODO
-                    trigger_bits=None,  # TODO
+                    # From Tau? 32 = OverlapFilter IsoMu
+                    # From Mu would be expected 4 = OverlapFilter PFTau
+                    trigger_bits=32,  # 5  # TODO: check if this trigger lets anything through and if 4 is better
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=23,  # TODO
+                    # no min_pt for TrigObj in twiki  # cclub has min_pt=25,
+                    # cclub has max_eta=2.1 # to add to trigger selection? # TODO
                     # filter names:
-                    # TODO
-                    trigger_bits=None,  # TODO
+                    # hltPFTau20TrackLooseIso
+                    # hltOverlapFilterSingleIsoMu19LooseIsoPFTau20
+                    # (LooseIso, OverlapFilter IsoMu)
+                    trigger_bits=1 + 32,  # 0 + 5
                 ),
             ],
             tags={"cross_trigger", "cross_mu_tau", "channel_mu_tau"},
@@ -145,49 +180,60 @@ def add_triggers_2016(config: od.Config, era: str) -> None:
         #
         # tauh tauh
         #
+
+        # -> analysis does not give any filter bits
         Trigger(
             name="HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg",
             id=708,  # TODO
             legs=[
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=38,  # TODO
+                    # no min_pt for TrigObj in twiki  # cclub has min_pt=40,
+                    # cclub has max_eta=2.1 # to add to trigger selection? # TODO
                     # filter names:
-                    # TODO
-                    trigger_bits=None,  # TODO
+                    # (Medium(Comb)Iso, Dz)
+                    trigger_bits=2 + 256,  # 1 + 8
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=38,  # TODO
+                    # no min_pt for TrigObj in twiki  # cclub has min_pt=40,
+                    # cclub has max_eta=2.1 # to add to trigger selection? # TODO
                     # filter names:
-                    # TODO
-                    trigger_bits=None,  # TODO
+                    # (Medium(Comb)Iso, Dz)
+                    trigger_bits=2 + 256,  # 1 + 8
                 ),
             ],
             applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or
-                (dataset_inst.x.era >= "B" and dataset_inst.x.era <= "F")
+                (dataset_inst.x.era >= "B" and dataset_inst.x.era <= "G")
             ),
             tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
         ),
+
+        # -> analysis does not give any filter bits
         Trigger(
             name="HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg",
             id=709,  # TODO
             legs=[
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=38,  # TODO
+                    # no min_pt for TrigObj in twiki  # cclub has min_pt=40,
+                    # cclub has max_eta=2.1 # to add to trigger selection? # TODO
                     # filter names:
-                    # TODO
-                    trigger_bits=None,  # TODO
+                    # (Medium(Comb)Iso, Dz)
+                    trigger_bits=2 + 256,  # 1 + 8
                 ),
                 TriggerLeg(
                     pdg_id=15,
-                    min_pt=38,  # TODO
+                    # no min_pt for TrigObj in twiki  # cclub has min_pt=40,
+                    # cclub has max_eta=2.1 # to add to trigger selection? # TODO
                     # filter names:
-                    # TODO
-                    trigger_bits=None,  # TODO
+                    # (Medium(Comb)Iso, Dz)
+                    trigger_bits=2 + 256,  # 1 + 8
                 ),
             ],
+            # should not be applied to mc according to twiki, but analysis uses it???
+            # twiki says in era G, but only defined for era H according to cmshltinfo and content of samples
+            # -> so, apply only to era H
             applies_to_dataset=(lambda dataset_inst: dataset_inst.is_mc or dataset_inst.x.era >= "H"),
             tags={"cross_trigger", "cross_tau_tau", "channel_tau_tau"},
         ),
@@ -198,9 +244,11 @@ def add_triggers_2016(config: od.Config, era: str) -> None:
     ])
 
     if era == "pre":
+        # single electron and muon trigger from cclub instead of twiki
         #
         # single electron
         #
+        # analysis has two legs???
         config.x.triggers.add(
             name="HLT_Ele25_eta2p1_WPTight_Gsf",
             id=701,  # TODO
@@ -280,6 +328,16 @@ def add_triggers_2017(config: od.Config) -> None:
     """
     Adds all triggers to a *config*. For the conversion from filter names to trigger bits, see
     https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/NanoAOD/python/triggerObjects_cff.py.
+
+    in the last version (19.06.2024):
+    https://github.com/cms-sw/cmssw/blob/9030bf6e5bc33e617ca03ac40e8586ea8b86abc2/PhysicsTools/NanoAOD/python/triggerObjects_cff.py#L309C1-L335C2
+    and
+    for v12:
+    https://github.com/cms-sw/cmssw/blob/7648470aa10c1bf28c0898b92ed902f754455d51/PhysicsTools/NanoAOD/python/triggerObjects_cff.py#L54C9-L78C11
+    for electrons
+    and
+    https://github.com/cms-sw/cmssw/blob/7648470aa10c1bf28c0898b92ed902f754455d51/PhysicsTools/NanoAOD/python/triggerObjects_cff.py#L106C9-L127C11
+    for muons
     """
     config.x.triggers = od.UniqueObjectIndex(Trigger, [
         #
