@@ -480,6 +480,22 @@ def jet_selection(
     parking_vbf_double_counting = full_like(events.event, False, dtype=bool)
     # TODO: check whether channel specific selection might be necessary
     if all_vbf_trigger:
+        # remove all events that fired only vbf trigger but were not matched or
+        # that fired vbf and tautaujet triggers and matched the leptons but not the jets
+        lep_tid = [
+            trigger.id for trigger in self.config_inst.x.triggers
+            if trigger.has_tag({
+                "single_e", "single_mu", "cross_e_tau", "cross_mu_tau",
+                "cross_tau_tau",
+            })
+        ]
+        lep_trigger_matched_mask = (
+            ak.any(reduce(
+                or_,
+                [(events.matched_trigger_ids == tid) for tid in lep_tid],
+                false_mask,
+            ), axis=1)
+        )
         vbf_trigger_fired_all_matched = full_like(events.event, False, dtype=bool)
         for trigger, _, leg_masks in trigger_results.x.trigger_data:
             if trigger.id in all_vbf_trigger:
@@ -529,8 +545,9 @@ def jet_selection(
                 vbf_trigger_fired_all_matched = vbf_trigger_fired_all_matched | _trigger_fired_all_matched
                 ids = ak.where(_trigger_fired_all_matched, np.float32(trigger.id), np.float32(np.nan))
                 matched_trigger_ids_list.append(ak.singletons(ak.nan_to_none(ids)))
-                print("trigger", trigger.name)
-                print("matched", ak.sum(_trigger_fired_all_matched))
+                print("trigger", trigger.name, "matched", ak.sum(_trigger_fired_all_matched), "matched but not CR matched", ak.sum(_trigger_fired_all_matched & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+                if trigger.has_tag("cross_tau_tau_vbf"):
+                    ttv_matched_mask = _trigger_fired_all_matched
 
         print("overall vbf matches", ak.sum(vbf_trigger_fired_all_matched))
 
@@ -579,6 +596,75 @@ def jet_selection(
                 false_mask,
             ), axis=1)
         )
+
+        print("total nevents", len(events.event))
+        fired_mask = full_like(events.event, False, dtype=bool)
+        for trigger in self.config_inst.x.triggers:
+            if trigger.has_tag("single_e") or trigger.has_tag("single_mu") or trigger.has_tag("cross_e_tau") or trigger.has_tag("cross_mu_tau") or trigger.has_tag("cross_tau_tau") or trigger.has_tag("cross_tau_tau_jet"):  # noqa: E501
+                n_fired = ak.sum(ak.any(events.fired_trigger_ids == trigger.id, axis=1))
+                fired_mask = fired_mask | ak.any(events.fired_trigger_ids == trigger.id, axis=1)
+                print(f"fired {trigger.name}: ", n_fired)
+        print("total event firing CR", ak.sum(fired_mask))
+
+        ttv_fired_mask = full_like(events.event, False, dtype=bool)
+        for trigger in self.config_inst.x.triggers:
+            if trigger.has_tag("cross_tau_tau_vbf"):
+                n_fired_tt_vbf = ak.sum(ak.any(events.fired_trigger_ids == trigger.id, axis=1))
+                ttv_fired_mask = ttv_fired_mask | ak.any(events.fired_trigger_ids == trigger.id, axis=1)
+                print(f"fired {trigger.name}: ", n_fired_tt_vbf)
+        print("total event firing tt_vbf", ak.sum(ttv_fired_mask))
+        print("new events firing tt_vbf", ak.sum(ttv_fired_mask & ~fired_mask))
+        print("new potentially matching events firing tt_vbf", ak.sum(ttv_matched_mask & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+
+        vbf_fired_mask = full_like(events.event, False, dtype=bool)
+        for trigger in self.config_inst.x.triggers:
+            if trigger.has_tag("cross_vbf"):
+                n_fired_vbf = ak.sum(ak.any(events.fired_trigger_ids == trigger.id, axis=1))
+                vbf_fired_mask = vbf_fired_mask | ak.any(events.fired_trigger_ids == trigger.id, axis=1)
+                print(f"fired {trigger.name}: ", n_fired_vbf)
+        print("total event firing vbf", ak.sum(vbf_fired_mask))
+        print("new events firing vbf", ak.sum(vbf_fired_mask & ~fired_mask))
+        print("new potentially matching events firing vbf", ak.sum(vbf_fired_mask & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+
+        tv_fired_mask = full_like(events.event, False, dtype=bool)
+        for trigger in self.config_inst.x.triggers:
+            if trigger.has_tag("cross_tau_vbf"):
+                n_fired_tv = ak.sum(ak.any(events.fired_trigger_ids == trigger.id, axis=1))
+                tv_fired_mask = tv_fired_mask | ak.any(events.fired_trigger_ids == trigger.id, axis=1)
+                print(f"fired {trigger.name}: ", n_fired_tv)
+        print("total event firing tv", ak.sum(tv_fired_mask))
+        print("new events firing tv", ak.sum(tv_fired_mask & ~fired_mask))
+        print("new potentially matching events firing tv", ak.sum(tv_fired_mask & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+
+        ev_fired_mask = full_like(events.event, False, dtype=bool)
+        for trigger in self.config_inst.x.triggers:
+            if trigger.has_tag("cross_e_vbf"):
+                n_fired_ev = ak.sum(ak.any(events.fired_trigger_ids == trigger.id, axis=1))
+                ev_fired_mask = ev_fired_mask | ak.any(events.fired_trigger_ids == trigger.id, axis=1)
+                print(f"fired {trigger.name}: ", n_fired_ev)
+        print("total event firing ev", ak.sum(ev_fired_mask))
+        print("new events firing ev", ak.sum(ev_fired_mask & ~fired_mask))
+        print("new potentially matching events firing ev", ak.sum(ev_fired_mask & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+
+        mv_fired_mask = full_like(events.event, False, dtype=bool)
+        for trigger in self.config_inst.x.triggers:
+            if trigger.has_tag("cross_mu_vbf"):
+                n_fired_mv = ak.sum(ak.any(events.fired_trigger_ids == trigger.id, axis=1))
+                mv_fired_mask = mv_fired_mask | ak.any(events.fired_trigger_ids == trigger.id, axis=1)
+                print(f"fired {trigger.name}: ", n_fired_mv)
+        print("total event firing mv", ak.sum(mv_fired_mask))
+        print("new events firing mv", ak.sum(mv_fired_mask & ~fired_mask))
+        print("new potentially matching events firing mv", ak.sum(mv_fired_mask & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+
+        print("total event firing any vbf-related trigger", ak.sum(ttv_fired_mask | vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask))  # noqa: E501
+        print("new events firing any vbf-related trigger", ak.sum((ttv_fired_mask | vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~fired_mask))  # noqa: E501
+        print("new events firing any vbf-related trigger but not matched", ak.sum(((ttv_fired_mask | vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~fired_mask) & ~vbf_trigger_fired_all_matched))  # noqa: E501
+        print("total matched to any vbf-related trigger", ak.sum(vbf_trigger_fired_all_matched))
+        print("total matched to any vbf-related trigger but not matched in CR", ak.sum(vbf_trigger_fired_all_matched & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+        print("new events firing any vbf-related trigger except ttv", ak.sum((vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~(fired_mask | ttv_fired_mask)))
+        print("new events firing any vbf-related trigger except ttv and not matched", ak.sum(((vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~(fired_mask | ttv_fired_mask)) & ~vbf_trigger_fired_all_matched))  # noqa: E501
+        print("total matched to any vbf-related trigger except ttv", ak.sum(vbf_trigger_fired_all_matched & ~ttv_matched_mask))
+        print("total matched to any vbf-related trigger except ttv and not matched in CR", ak.sum((vbf_trigger_fired_all_matched & ~ttv_matched_mask) & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))
 
         vbf_fired_j_not_matched = (
             # need to match either only vbf or vbf and tautaujet triggers
