@@ -605,6 +605,7 @@ def jet_selection(
                 fired_mask = fired_mask | ak.any(events.fired_trigger_ids == trigger.id, axis=1)
                 print(f"fired {trigger.name}: ", n_fired)
         print("total event firing CR", ak.sum(fired_mask))
+        print("total events matched to CR", ak.sum(lep_trigger_matched_mask | full_leading_matched_all_events))
 
         ttv_fired_mask = full_like(events.event, False, dtype=bool)
         for trigger in self.config_inst.x.triggers:
@@ -614,7 +615,10 @@ def jet_selection(
                 print(f"fired {trigger.name}: ", n_fired_tt_vbf)
         print("total event firing tt_vbf", ak.sum(ttv_fired_mask))
         print("new events firing tt_vbf", ak.sum(ttv_fired_mask & ~fired_mask))
-        print("new potentially matching events firing tt_vbf", ak.sum(ttv_matched_mask & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+        print("new potentially matching events firing tt_vbf", ak.sum(ttv_fired_mask & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+
+        print("total events firing CR or tt_vbf", ak.sum(fired_mask | ttv_fired_mask))
+        print("total events matched to CR or tt_vbf", ak.sum(lep_trigger_matched_mask | full_leading_matched_all_events | ttv_matched_mask))  # noqa: E501
 
         vbf_fired_mask = full_like(events.event, False, dtype=bool)
         for trigger in self.config_inst.x.triggers:
@@ -658,13 +662,15 @@ def jet_selection(
 
         print("total event firing any vbf-related trigger", ak.sum(ttv_fired_mask | vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask))  # noqa: E501
         print("new events firing any vbf-related trigger", ak.sum((ttv_fired_mask | vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~fired_mask))  # noqa: E501
-        print("new events firing any vbf-related trigger but not matched", ak.sum(((ttv_fired_mask | vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~fired_mask) & ~vbf_trigger_fired_all_matched))  # noqa: E501
+        print("new potentially matching events firing any vbf-related trigger", ak.sum((ttv_fired_mask | vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
+        print("new events firing any vbf-related trigger but not matched", ak.sum(((ttv_fired_mask | vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~lep_trigger_matched_mask & ~full_leading_matched_all_events) & ~vbf_trigger_fired_all_matched))  # noqa: E501
         print("total matched to any vbf-related trigger", ak.sum(vbf_trigger_fired_all_matched))
         print("total matched to any vbf-related trigger but not matched in CR", ak.sum(vbf_trigger_fired_all_matched & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
-        print("new events firing any vbf-related trigger except ttv", ak.sum((vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~(fired_mask | ttv_fired_mask)))
-        print("new events firing any vbf-related trigger except ttv and not matched", ak.sum(((vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~(fired_mask | ttv_fired_mask)) & ~vbf_trigger_fired_all_matched))  # noqa: E501
-        print("total matched to any vbf-related trigger except ttv", ak.sum(vbf_trigger_fired_all_matched & ~ttv_matched_mask))
-        print("total matched to any vbf-related trigger except ttv and not matched in CR", ak.sum((vbf_trigger_fired_all_matched & ~ttv_matched_mask) & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))
+        print("new events firing any vbf-related trigger except ttv", ak.sum((vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~(fired_mask | ttv_fired_mask)))  # noqa: E501
+        print("new events firing any vbf-related trigger except ttv and not matched", ak.sum(((vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~(lep_trigger_matched_mask | full_leading_matched_all_events | ttv_matched_mask)) & ~vbf_trigger_fired_all_matched))  # noqa: E501
+        print("new potentially matching events firing any vbf-related trigger except ttv", ak.sum((vbf_fired_mask | tv_fired_mask | ev_fired_mask | mv_fired_mask) & ~(lep_trigger_matched_mask | full_leading_matched_all_events | ttv_fired_mask)))  # noqa: E501
+        print("total matched to any vbf-related trigger except ttv", ak.sum(vbf_trigger_fired_all_matched & ~ttv_matched_mask))  # noqa: E501
+        print("total matched to any vbf-related trigger except ttv and not matched in CR", ak.sum((vbf_trigger_fired_all_matched & ~ttv_matched_mask) & ~lep_trigger_matched_mask & ~full_leading_matched_all_events))  # noqa: E501
 
         vbf_fired_j_not_matched = (
             # need to match either only vbf or vbf and tautaujet triggers
