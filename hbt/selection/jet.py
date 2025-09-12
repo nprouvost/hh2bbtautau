@@ -497,6 +497,8 @@ def jet_selection(
             ), axis=1)
         )
         vbf_trigger_fired_all_matched = full_like(events.event, False, dtype=bool)
+        if not ak.any(ttj_mask):
+            full_leading_matched_all_events = full_like(events.event, False, dtype=bool)
         for trigger, _, leg_masks in trigger_results.x.trigger_data:
             if trigger.id in all_vbf_trigger:
                 # create event-level trigger requirements mask
