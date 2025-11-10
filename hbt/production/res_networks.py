@@ -203,7 +203,7 @@ class _res_dnn_evaluation(Producer):
         # precompute variables stored directly in the events for easier access later on
         events = self.update_events(events)
 
-        # prepare continupus and categorical network inputs
+        # prepare continuous and categorical network inputs
         # ! NOTE: the order in which inputs are assigned to the DotDicts must match exactly the networks' feature order
         cont = DotDict()
         cat = DotDict()
@@ -218,8 +218,8 @@ class _res_dnn_evaluation(Producer):
         for n, v in cat.items():
             cat[n] = v[event_mask]
 
-        # build continous inputs
-        continous_inputs = [
+        # build continuous inputs
+        continuous_inputs = [
             np.asarray(t[..., None], dtype=np.float32) for t in [
                 *cont.values(),
                 (self.mass * np.ones(n_mask, dtype=np.float32)) if self.parametrized else None,
@@ -240,7 +240,7 @@ class _res_dnn_evaluation(Producer):
         scores = self.evaluator(
             self.cls_name,
             inputs=[
-                np.concatenate(continous_inputs, axis=1),
+                np.concatenate(continuous_inputs, axis=1),
                 np.concatenate(categorical_inputs, axis=1),
             ],
         )
@@ -681,7 +681,7 @@ class _vbf_dnn(_res_dnn_evaluation):
         "VBFJet.{pt,eta,phi,mass,btagPNetQvG}",
         "reg_dnn_moe_nu{1,2}_{px,py,pz}",
     }
-    require_prodocuers = ["reg_dnn_moe"]
+    require_producers = ["reg_dnn_moe"]
 
     parametrized = False
 
@@ -769,7 +769,7 @@ class _vbf_dnn(_res_dnn_evaluation):
         cont.hbb_pz = cont_orig.hbb_pz
         cont.hbb_e = cont_orig.hbb_e
 
-        # htthbb features (with nu's, also note the non-flipped order)  # TODO: really?
+        # htthbb features (with nu's, also note the non-flipped order) 
         cont.htthbb_regr_e = cont_orig.htthbb_e + nu1_e + nu2_e
         cont.htthbb_regr_px = cont_orig.htthbb_px + cont.nu1_px + cont.nu2_px
         cont.htthbb_regr_py = cont_orig.htthbb_py + cont.nu1_py + cont.nu2_py
