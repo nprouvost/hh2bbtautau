@@ -1756,10 +1756,10 @@ def add_config(
         ))
         # vbf-hhtag, https://github.com/elviramartinv/VBFjtag/tree/CCLUB
         add_external("vbf_jtag_repo", Ext(
-            f"{central_hbt_dir}/VBFjtag-CCLUB-3905dcc.tar.gz",
+            f"{central_hbt_dir}/VBFjtag-0f0bec9.tar.gz",
             subpaths=DotDict(
-                even="VBFjtag-3905dcce38cbd9e768596542f2e396651fb690f8/models/VBFjTag_par_0",
-                odd="VBFjtag-3905dcce38cbd9e768596542f2e396651fb690f8/models/VBFjTag_par_1",
+                even="VBFjtag-0f0bec91c848c026156227ccecdcabc4f9daef89/models/VBFjTag_par_0",
+                odd="VBFjtag-0f0bec91c848c026156227ccecdcabc4f9daef89/models/VBFjTag_par_1",
             ),
             version="v1",
         ))

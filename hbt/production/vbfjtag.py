@@ -76,6 +76,19 @@ def vbfjtag(
     n_jets_capped = ak.num(jets, axis=1)
     is_hhbjet = ak.values_astype(is_hhbjet_mask[jet_sorting_indices][vbfjet_mask_sorted][event_mask][..., :n_jets_max], np.float32)  # noqa: E501
 
+    # define centrality and isolation for each jet
+    eta_max = ak.max(jets.eta, axis=1)
+    eta_min = ak.min(jets.eta, axis=1)
+    central_eta = (eta_max + eta_min) / 2
+    jets["centrality"] = 1 - (2 * abs(jets.eta - central_eta)) / (eta_max - eta_min)
+    # Comment: maybe add a failsafe for cases where eta_max == eta_min?
+    # e.g. jets.centrality = 1 - ( 2 * abs(jets.eta - central_eta)) / (eta_max - eta_min + 1e-6)
+
+    all_dr = jets.metric_table(jets)
+    # remove self distances
+    all_dr = ak.where(all_dr == 0, np.inf, all_dr)
+    jets["isolation"] = ak.min(all_dr, axis=2)
+
     # get input features
     input_features = [
         jet_shape * 1,
@@ -87,6 +100,8 @@ def vbfjtag(
         jets.btagPNetB,
         jets.delta_phi(htt),
         is_hhbjet,
+        jets.centrality,
+        jets.isolation,
         jet_shape * (self.vbfjtag_campaign),
         jet_shape * self.vbfjtag_channel_map[events[event_mask].channel_id],
         jet_shape * htt.pt,
