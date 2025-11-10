@@ -116,6 +116,8 @@ class _res_dnn_evaluation(Producer):
         })
 
     def requires_func(self, task: law.Task, reqs: dict, **kwargs) -> None:
+        super().requires_func(task=task, reqs=reqs, **kwargs)
+
         if "external_files" in reqs:
             return
 
@@ -123,8 +125,9 @@ class _res_dnn_evaluation(Producer):
         reqs["external_files"] = BundleExternalFiles.req(task)
 
     def setup_func(self, task: law.Task, reqs: dict[str, DotDict[str, Any]], **kwargs) -> None:
-        from hbt.ml.evaluators import TFEvaluator
+        super().setup_func(task=task, reqs=reqs, **kwargs)
 
+        from hbt.ml.evaluators import TFEvaluator
         if not getattr(task, "taf_tf_evaluator", None):
             task.taf_tf_evaluator = TFEvaluator()
         self.evaluator = task.taf_tf_evaluator
@@ -678,6 +681,7 @@ class _vbf_dnn(_res_dnn_evaluation):
         "VBFJet.{pt,eta,phi,mass,btagPNetQvG}",
         "reg_dnn_moe_nu{1,2}_{px,py,pz}",
     }
+    require_prodocuers = ["reg_dnn_moe"]
 
     parametrized = False
 
@@ -696,22 +700,6 @@ class _vbf_dnn(_res_dnn_evaluation):
 
         # update produced columns
         self.produces |= set(self.output_columns)
-
-    def requires_func(self, task: law.Task, reqs: dict, **kwargs) -> None:
-        from columnflow.tasks.production import ProduceColumns
-        super().requires_func(task=task, reqs=reqs, **kwargs)
-        reqs["reg_dnn_moe"] = ProduceColumns.req_other_producer(task, producer="reg_dnn_moe")
-
-    def setup_func(
-        self,
-        task: law.Task,
-        reqs: dict[str, DotDict[str, Any]],
-        inputs: dict,
-        reader_targets: law.util.InsertableDict,
-        **kwargs,
-    ) -> None:
-        super().setup_func(task=task, reqs=reqs, inputs=inputs, reader_targets=reader_targets, **kwargs)
-        reader_targets["reg_dnn_moe"] = inputs["reg_dnn_moe"]["columns"]
 
     def update_events(self, events: ak.Array) -> ak.Array:
         events = super().update_events(events)
