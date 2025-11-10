@@ -769,7 +769,7 @@ class _vbf_dnn(_res_dnn_evaluation):
         cont.hbb_pz = cont_orig.hbb_pz
         cont.hbb_e = cont_orig.hbb_e
 
-        # htthbb features (with nu's, also note the non-flipped order) 
+        # htthbb features (with nu's, also note the non-flipped order)
         cont.htthbb_regr_e = cont_orig.htthbb_e + nu1_e + nu2_e
         cont.htthbb_regr_px = cont_orig.htthbb_px + cont.nu1_px + cont.nu2_px
         cont.htthbb_regr_py = cont_orig.htthbb_py + cont.nu1_py + cont.nu2_py
@@ -814,7 +814,7 @@ class _vbf_dnn(_res_dnn_evaluation):
 
         # fox-wolfram moments
         mask_hhbjets_vbfjets = events.Jet.assignment_bits == 0
-        # TODO: these jets should be cleaned from the fatjet with deltaR < 0.8
+        # TODO: once fatjets are fully defined, these jets should be cleaned from them with deltaR < 0.8
         central_jets = events.Jet[mask_hhbjets_vbfjets]
         # all central jets + hhbjets + vbfjets
         vbfcjets = ak.concatenate((events.HHBJet, events.VBFJet, central_jets), axis=1)
@@ -841,6 +841,7 @@ class _vbf_dnn(_res_dnn_evaluation):
         cont.fw_t_0 = ak.sum(weight_t * legendre_0, axis=1)
         cont.fw_1_0 = ak.sum(legendre_0, axis=1)
         cont.fw_s_2 = ak.sum(weight_s * legendre_2, axis=1)
+        # TODO: with proper fatjet definition, we should add them to the fw definitions
 
         # mask missing features with defaults
         def mask_values(mask, value, *fields):
